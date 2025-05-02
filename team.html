@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <style>
+        :root {
+            --primary-color: rgba(255, 174, 0);
+            --secondary-color: rgba(1, 162, 255, 0.4);
+            --text-color: rgba(51, 51, 51);
+            --bg-color: rgba(255, 255, 255);
+            --accent-color: rgba(199, 62, 58);
+            --light-bg: rgba(245, 245, 245);
+            --header-bg-color: rgba(1, 162, 255, 0.4);
+        }
+
+        .dark-mode {
+            --primary-color: rgba(255, 136, 0);
+            --secondary-color: rgba(82, 1, 189, 0.4);
+            --text-color: rgba(245, 245, 245);
+            --bg-color: rgba(18, 18, 18);
+            --accent-color: rgba(231, 76, 60);
+            --light-bg: rgba(30, 30, 30);
+            --header-bg-color: rgba(82, 1, 189, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg-color);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            height: 50px; /* Match the image height */
+            overflow: hidden; /* Prevent overflow if text is too long */
+            margin: 0; /* Remove default margins */
+        }
+        .content-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            justify-items: center;
+        }
+
+        .content-container {
+    width: 100%;
+    margin: 2rem 0;
+}
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .language-selector {
+            display: inline-block;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .language-buttons {
+            display: flex;
+            width: 180px;
+        }
+
+        .language-btn {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .language-btn.active {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .theme-toggle {
+            display: inline-block;
+        }
+
+        .theme-btn {
+            width: 70px;
+            height: 34px;
+            border-radius: 17px;
+            background-color: var(--light-bg);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+        }
+
+        .sun-icon, .moon-icon {
+            font-size: 16px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 0rem 2rem;
+        }
+
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+        }
+
+        
+
+        .content-box:hover {
+            transform: scale(1.05);
+        }
+
+        .content-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--header-bg-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        select#page-selector option {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 5px;
+        }
+
+        select#page-selector {
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 5px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        /* Adjusting layout for content boxes */
+        .content-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+.content-box {
+    background-color: var(--light-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+        .content-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .sharp-box {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            text-align: center;
+            font-size: 1.5rem;
+            z-index: 1;
+            left: 5;
+            right: 5;
+            width: 100%
+        }
+
+        /* Enhanced Comment System Styles */
+        .comments-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form {
+            margin: 1rem 0 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-color);
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            resize: vertical;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .comment-form button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .comment-form button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .comment {
+            background-color: var(--bg-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .comment p {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .comment small {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .reactions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .reaction-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 0.3rem 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+
+        .reaction-btn:hover {
+            background-color: var(--light-bg);
+            transform: scale(1.05);
+        }
+
+        .reaction-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Alert styles */
+        .alert {
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .alert-error {
+            background-color: rgba(244, 67, 54, 0.2);
+            border: 1px solid #F44336;
+            color: #d32f2f;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .comments-section {
+                padding: 1rem;
+            }
+            
+            .comment {
+                padding: 1rem;
+            }
+            
+            .comment-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 13rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: all 0.3s;
+            border-radius: 12px;
+        }
+        
+    </style>
+</head>
+<body>
+
+ <header>   
+
+    <div class="header-content">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <h1 data-lang="en">Our Team</h1>
+            <h1 data-lang="ar" style="display: none;">فريقنا</h1>
+            <h1 data-lang="fr" style="display: none;">Notre équipe</h3>
+            
+            </div>
+            <nav>
+                <ul>
+                    <a href="index.html" class="nav-link" data-lang="en">Home</a>
+                    <a href="index.html" class="nav-link" data-lang="ar" style="display: none;">الرئيسية</a>
+                    <a href="index.html" class="nav-link" data-lang="fr" style="display: none;">Accueil</a>
+                </ul>
+            </nav>
+            
+        <nav>
+            <select id="page-selector" onchange="navigateToPage(this.value)">
+                <option value="" data-lang="en">Choose a Page</option>
+                <option value="" disabled data-lang="ar" style="display: none;">اختر صفحة</option>
+                <option value="" disabled data-lang="fr" style="display: none;">Choisissez une page</option>
+                
+                <option value="new-administrative-capital.html" data-lang="en">New Administrative Capital</option>
+                <option value="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</option>
+                <option value="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</option>
+            
+                <option value="suez-canal-expansion.html" data-lang="en">Suez Canal Expansion</option>
+                <option value="suez-canal-expansion.html" data-lang="ar" style="display: none;">توسعة قناة السويس</option>
+                <option value="suez-canal-expansion.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</option>
+            
+                <option value="transportation.html" data-lang="en">Transportation and Roads</option>
+                <option value="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</option>
+                <option value="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</option>
+            
+                <option value="energy-achievements.html" data-lang="en">Energy Achievements</option>
+                <option value="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</option>
+                <option value="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</option>
+            
+                <option value="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</option>
+                <option value="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</option>
+                <option value="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</option>
+            
+                <option value="healthcare.html" data-lang="en">Healthcare Improvements</option>
+                <option value="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</option>
+                <option value="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</option>
+            
+                <option value="tourism.html" data-lang="en">Tourism Revival</option>
+                <option value="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</option>
+                <option value="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</option>
+            
+                <option value="haya-kareema.html" data-lang="en">Haya Karima Initiative</option>
+                <option value="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</option>
+                <option value="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Karima</option>
+            
+                <option value="new-cities.html" data-lang="en">New Cities</option>
+                <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
+                <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
+            </select>
+            
+            </nav>
+        <div class="controls">
+            <div class="language-selector">
+                <div class="language-buttons">
+                    <button class="language-btn" onclick="changeLanguage('en')" id="lang-en">EN</button>
+                    <button class="language-btn" onclick="changeLanguage('ar')" id="lang-ar">عربي</button>
+                    <button class="language-btn" onclick="changeLanguage('fr')" id="lang-fr">FR</button>
+                </div>
+            </div>
+            <div class="theme-toggle">
+                <button class="theme-btn" id="theme-toggle">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+ </header>
+
+        
+    <main>
+        <div class="content-container">
+            <div class="content-box">
+                <h2 data-lang="en">Research and Infographics: Joy Hany Adel</h2>
+                <h2 data-lang="ar" style="display: none;">البحث والانفوجرافيك: جوي هاني عادل</h2>
+                <h2 data-lang="fr" style="display: none;">Recherche et Infographie: Joy Hany Adel</h2>
+            </div>
+            <div class="content-box">
+                <h2 data-lang="en">Programmer and UI Designer: Kirolos Hany Adel</h2>
+                <h2 data-lang="ar" style="display: none;">مبرمج ومصمم واجهة المستخدم: كيرلس هاني عادل</h2>
+                <h2 data-lang="fr" style="display: none;">Programmeur et Designer UI: Kirolos Hany Adel</h2>
+            </div>
+           
+        </div>
+    </main>
+    <footer>
+
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 data-lang="en">Quick Links</h4>
+                <h4 data-lang="ar" style="display: none;">روابط سريعة</h4>
+                <h4 data-lang="fr" style="display: none;">Liens Rapides</h4>
+                <ul class="footer-links">
+                    <li><a href="new-administrative-capital.html" data-lang="en">New Administrative Capital</a>
+                        <a href="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</a>
+                        <a href="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</a>
+                    </li>
+                    <li><a href="suez-canal.html" data-lang="en">Suez Canal Expansion</a>
+                        <a href="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</a>
+                        <a href="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</a>
+                    </li>
+                    <li><a href="transportation.html" data-lang="en">Transportation and Roads</a>
+                        <a href="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</a>
+                        <a href="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</a>
+                    </li>
+                    <li><a href="energy-achievements.html" data-lang="en">Energy Achievements</a>
+                        <a href="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</a>
+                        <a href="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</a>
+                    </li>
+                    <li><a href="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</a>
+                        <a href="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</a>
+                        <a href="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</a>
+                    </li>
+                    <li><a href="healthcare.html" data-lang="en">Healthcare Improvements</a>
+                        <a href="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</a>
+                        <a href="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</a>
+                    </li>
+                    <li><a href="tourism.html" data-lang="en">Tourism Revival</a>
+                        <a href="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</a>
+                        <a href="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</a>
+                    </li>
+                    <li><a href="haya-kareema.html" data-lang="en">Haya Kareema Initiative</a>
+                        <a href="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</a>
+                        <a href="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Kareema</a>
+                    </li>
+                    
+                    <li><a href="new-cities.html" data-lang="en">New Cities</a>
+                        <a href="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</a>
+                        <a href="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</a>
+                    </li>
+
+                    <li><a href="feddan.html" data-lang="en">1,5 Million Feddan</a>
+                        <a href="feddan.html" data-lang="ar" style="display: none;">المليون ونصف فدان</a>
+                        <a href="feddan.html" data-lang="fr" style="display: none;">1,5 million de feddan</a>
+                    </li>
+                
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-lang="en">About Us</h4>
+                <h4 data-lang="ar" style="display: none;">معلومات عنا</h4>
+                <h4 data-lang="fr" style="display: none;">À Propos de Nous</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html" data-lang="en">Our Mission</a>
+                        <a href="about.html" data-lang="ar" style="display: none;">مهمتنا</a>
+                        <a href="about.html" data-lang="fr" style="display: none;">Notre Mission</a>
+                    </li>
+                    <li><a href="team.html" data-lang="en">Our Team</a>
+                        <a href="team.html" data-lang="ar" style="display: none;">فريقنا</a>
+                        <a href="team.html" data-lang="fr" style="display: none;">Notre Équipe</a>
+                    </li>
+                    <li><a href="https://nes.moe.gov.eg" data-lang="en">Contact Us</a>
+                        <a href="https://nes.moe.gov.eg" data-lang="ar" style="display: none;">اتصل بنا</a>
+                        <a href="https://nes.moe.gov.eg" data-lang="fr" style="display: none;">Contactez-Nous</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4 data-lang="en">Follow Us</h4>
+                <h4 data-lang="ar" style="display: none;">تابعنا</h4>
+                <h4 data-lang="fr" style="display: none;">Suivez-Nous</h4>
+                <ul class="footer-links">
+                    <li><a href="https://www.facebook.com/nesofficial1/" data-lang="en">Facebook</a>
+                        <a href="https://www.facebook.com/nesofficial1/" data-lang="ar" style="display: none;">فيسبوك</a>
+                        <a href="https://www.facebook.com/nesofficial1/" data-lang="fr" style="display: none;">Facebook</a>
+                    </li>
+                    <li><a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="en">YouTube</a>
+                        <a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="ar" style="display: none;">يوتيوب</a>
+                        <a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="fr" style="display: none;">YouTube</a>
+                    </li>
+                    <li><a href="https://www.instagram.com/nesofficial1" data-lang="en">Instagram</a>
+                        <a href="https://www.instagram.com/nesofficial1" data-lang="ar" style="display: none;">انستغرام</a>
+                        <a href="https://www.instagram.com/nesofficial1" data-lang="fr" style="display: none;">Instagram</a>
+                    </li>
+                        <li><a href="https://x.com/nes_egypt" data-lang="en">Twitter-X</a>
+                        <a href="https://x.com/nes_egypt" data-lang="ar" style="display: none;">تويتر-إكس</a>
+                        <a href="https://x.com/nes_egypt" data-lang="fr" style="display: none;">Twitter-X</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright" data-lang="en">© 2025 Sunrise in Egypt. All rights reserved.</p>
+        <p class="copyright" data-lang="ar" style="display: none;">© 2025 شروق مصر. جميع الحقوق محفوظة.</p>
+        <p class="copyright" data-lang="fr" style="display: none;">© 2025 Aube sur l'Égypte. Tous droits réservés.</p>
+    
+
+    </footer>
+
+    <script>
+        // Language and Theme Management
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply saved preferences (language and theme)
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+            const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+            
+            changeLanguage(savedLanguage);
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Language buttons
+            document.getElementById('lang-' + savedLanguage).classList.add('active');
+            
+            // Theme toggle button
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            themeToggleBtn.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
+            });
+        });
+
+        function changeLanguage(lang) {
+            // Hide all language elements
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            
+            // Update active language button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('lang-' + lang).classList.add('active');
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update document direction for Arabic
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        }
+
+        function navigateToPage(page) {
+            if (page) {
+                window.location.href = page;
+            }
+        }
+
+        // Enhanced Comment System Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const commentForm = document.getElementById('comment-form');
+            const commentsContainer = document.getElementById('comments-container');
+            const alertSuccess = document.getElementById('alert-success');
+            const alertError = document.getElementById('alert-error');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // Load existing comments from localStorage
+            loadComments();
+            
+            // Handle form submission
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitComment();
+            });
+            
+            // Handle Enter key press in textarea
+            const commentTextareas = [
+                document.getElementById('comment-text'),
+                document.getElementById('comment-text-ar'),
+                document.getElementById('comment-text-fr')
+            ];
+            
+            commentTextareas.forEach(textarea => {
+                if (textarea) {
+                    textarea.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            submitComment();
+                        }
+                    });
+                }
+            });
+            
+            function submitComment() {
+                // Get current language
+                const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+                
+                // Get input values based on current language
+                let authorName, commentText;
+                
+                if (currentLang === 'en') {
+                    authorName = document.getElementById('author-name').value.trim();
+                    commentText = document.getElementById('comment-text').value.trim();
+                } else if (currentLang === 'ar') {
+                    authorName = document.getElementById('author-name-ar').value.trim();
+                    commentText = document.getElementById('comment-text-ar').value.trim();
+                } else if (currentLang === 'fr') {
+                    authorName = document.getElementById('author-name-fr').value.trim();
+                    commentText = document.getElementById('comment-text-fr').value.trim();
+                }
+                
+                // Validate inputs
+                if (!authorName || !commentText) {
+                    showAlert(alertError);
+                    return;
+                }
+                
+                // Create comment object
+                const comment = {
+                    id: generateCommentId(),
+                    author: authorName,
+                    text: commentText,
+                    date: new Date().toISOString(),
+                    page: currentPage,
+                    language: currentLang,
+                    likes: 0,
+                    liked: false
+                };
+                
+                // Save comment to localStorage
+                saveComment(comment);
+                
+                // Clear form fields
+                if (currentLang === 'en') {
+                    document.getElementById('author-name').value = '';
+                    document.getElementById('comment-text').value = '';
+                } else if (currentLang === 'ar') {
+                    document.getElementById('author-name-ar').value = '';
+                    document.getElementById('comment-text-ar').value = '';
+                } else if (currentLang === 'fr') {
+                    document.getElementById('author-name-fr').value = '';
+                    document.getElementById('comment-text-fr').value = '';
+                }
+                
+                // Show success message
+                showAlert(alertSuccess);
+                
+                // Reload comments
+                loadComments();
+            }
+            
+            function generateCommentId() {
+                return 'comment_' + new Date().getTime() + '_' + Math.random().toString(36).substr(2, 9);
+            }
+            
+            function saveComment(comment) {
+                // Get existing comments
+                let comments = JSON.parse(localStorage.getItem('comments')) || [];
+                
+                // Add new comment
+                comments.push(comment);
+                
+                // Save to localStorage
+                localStorage.setItem('comments', JSON.stringify(comments));
+                
+                // Create a "comments" folder structure in localStorage
+                const pageFolderKey = 'comments_' + comment.page.replace('.html', '');
+                let pageComments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
+                pageComments.push(comment);
+                localStorage.setItem(pageFolderKey, JSON.stringify(pageComments));
+            }
+            
+            function loadComments() {
+                // Get current page
+                const pageFolderKey = 'comments_' + currentPage.replace('.html', '');
+                
+                // Get comments for current page
+                let comments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
+                
+                // Sort comments (newest first)
+                comments.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Clear comments container
+                commentsContainer.innerHTML = '';
+                
+                // If no comments, show message
+                if (comments.length === 0) {
+                    const noCommentsMsg = document.createElement('p');
+                    noCommentsMsg.className = 'no-comments';
+                    
+                    // Get current language
+                    const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+                    
+                    if (currentLang === 'en') {
+                        noCommentsMsg.textContent = 'No comments yet. Be the first to comment!';
+                    } else if (currentLang === 'ar') {
+                        noCommentsMsg.textContent = 'لا توجد تعليقات حتى الآن. كن أول من يعلق!';
+                    } else if (currentLang === 'fr') {
+                        noCommentsMsg.textContent = 'Pas encore de commentaires. Soyez le premier à commenter!';
+                    }
+                    
+                    commentsContainer.appendChild(noCommentsMsg);
+                    return;
+                }
+                
+                // Display comments
+                comments.forEach(comment => {
+                    const commentElement = document.createElement('div');
+                    commentElement.className = 'comment';
+                    commentElement.setAttribute('data-id', comment.id);
+                    
+                    const author = document.createElement('div');
+                    author.className = 'comment-author';
+                    author.textContent = comment.author;
+                    
+                    const text = document.createElement('p');
+                    text.textContent = comment.text;
+                    
+                    const meta = document.createElement('div');
+                    meta.className = 'comment-meta';
+                    
+                    const date = document.createElement('small');
+                    date.textContent = formatDate(comment.date);
+                    
+                    const reactions = document.createElement('div');
+                    reactions.className = 'reactions';
+                    
+                    const likeBtn = document.createElement('button');
+                    likeBtn.className = 'reaction-btn' + (comment.liked ? ' active' : '');
+                    likeBtn.innerHTML = '👍 ' + comment.likes;
+                    likeBtn.addEventListener('click', function() {
+                        toggleLike(comment.id);
+                    });
+                    
+                    reactions.appendChild(likeBtn);
+                    meta.appendChild(date);
+                    meta.appendChild(reactions);
+                    
+                    commentElement.appendChild(author);
+                    commentElement.appendChild(text);
+                    commentElement.appendChild(meta);
+                    
+                    commentsContainer.appendChild(commentElement);
+                });
+            }
+            
+            function toggleLike(commentId) {
+                // Get all comments
+                let allComments = JSON.parse(localStorage.getItem('comments')) || [];
+                
+                // Get current page folder
+                const pageFolderKey = 'comments_' + currentPage.replace('.html', '');
+                let pageComments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
+                
+                // Find comment by ID in both arrays
+                const allCommentsIndex = allComments.findIndex(c => c.id === commentId);
+                const pageCommentsIndex = pageComments.findIndex(c => c.id === commentId);
+                
+                if (allCommentsIndex !== -1 && pageCommentsIndex !== -1) {
+                    // Toggle liked state
+                    const newLikedState = !allComments[allCommentsIndex].liked;
+                    
+                    // Update comment in all comments
+                    allComments[allCommentsIndex].liked = newLikedState;
+                    allComments[allCommentsIndex].likes = newLikedState 
+                        ? allComments[allCommentsIndex].likes + 1 
+                        : Math.max(0, allComments[allCommentsIndex].likes - 1);
+                    
+                    // Update comment in page comments
+                    pageComments[pageCommentsIndex].liked = newLikedState;
+                    pageComments[pageCommentsIndex].likes = newLikedState 
+                        ? pageComments[pageCommentsIndex].likes + 1 
+                        : Math.max(0, pageComments[pageCommentsIndex].likes - 1);
+                    
+                    // Save updated comments
+                    localStorage.setItem('comments', JSON.stringify(allComments));
+                    localStorage.setItem(pageFolderKey, JSON.stringify(pageComments));
+                    
+                    // Reload comments to reflect changes
+                    loadComments();
+                }
+            }
+            
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+                
+                const options = { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                };
+                
+                return date.toLocaleDateString(
+                    currentLang === 'en' ? 'en-US' : 
+                    currentLang === 'ar' ? 'ar-EG' : 
+                    'fr-FR', 
+                    options
+                );
+            }
+            
+            function showAlert(alertElement) {
+                // Show alert
+                alertElement.style.display = 'block';
+                
+                // Hide after 3 seconds
+                setTimeout(function() {
+                    alertElement.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

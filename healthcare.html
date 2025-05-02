@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Progress</title>
+    <style>
+        :root {
+            --primary-color: rgba(255, 174, 0);
+            --secondary-color: rgba(1, 162, 255, 0.4);
+            --text-color: rgba(51, 51, 51);
+            --bg-color: rgba(255, 255, 255);
+            --accent-color: rgba(199, 62, 58);
+            --light-bg: rgba(245, 245, 245);
+            --header-bg-color: rgba(1, 162, 255, 0.4); /* Default header background color */
+        }
+
+        .dark-mode {
+            --primary-color: rgba(255, 136, 0);
+            --secondary-color: rgba(82, 1, 189, 0.4);
+            --text-color: rgba(245, 245, 245);
+            --bg-color: rgba(18, 18, 18);
+            --accent-color: rgba(231, 76, 60);
+            --light-bg: rgba(30, 30, 30);
+            --header-bg-color: rgba(82, 1, 189, 0.4); /* Dark mode header background color */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-bg-color); /* Use the variable for the header background */
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+        }     
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 13rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: all 0.3s;
+            border-radius: 12px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .language-selector {
+            display: inline-block;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .language-buttons {
+            display: flex;
+            width: 180px;
+        }
+
+        .language-btn {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .language-btn.active {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .theme-toggle {
+            display: inline-block;
+        }
+
+        .theme-btn {
+            width: 70px;
+            height: 34px;
+            border-radius: 17px;
+            background-color: var(--light-bg);
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+        }
+
+        .sun-icon, .moon-icon {
+            font-size: 16px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 1rem 2rem;
+        }
+        
+
+
+        .content-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 2rem;
+        }
+
+        .content-box, .gallery-box {
+            background-color: var(--light-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 1 1 45%;
+            min-width: 300px;
+
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            min-width: 100%;
+        }
+
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .gallery-btn.left {
+            left: 10px;
+        }
+
+        .gallery-btn.right {
+            right: 10px;
+        }
+
+        .gallery-indicators {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .gallery-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-indicator.active {
+            background-color: var(--accent-color);
+        }
+        
+        
+        select#page-selector option {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 5px;
+        }
+
+        select#page-selector {
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 5px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--header-bg-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        .content-box p {
+                font-size: 1.2rem;
+                line-height: 1.8;
+            }
+
+            .sharp-box {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            text-align: center;
+            font-size: 1.5rem;
+            z-index: 1;
+            left: 5;
+            right: 5;
+            width: 100%
+            }
+
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+    
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+                <h1 data-lang="en">Healthcare Progress</h1>
+                <h1 data-lang="ar" style="display: none;">تطور الرعاية الصحية</h1>
+                <h1 data-lang="fr" style="display: none;">Progrès de la Santé</h1>
+            </div>
+            <nav>
+                <ul>
+                    <a href="index.html" class="nav-link" data-lang="en">Home</a>
+                    <a href="index.html" class="nav-link" data-lang="ar" style="display: none;">الرئيسية</a>
+                    <a href="index.html" class="nav-link" data-lang="fr" style="display: none;">Accueil</a>
+                </ul>
+            </nav>
+            
+    <nav>
+        <select id="page-selector" onchange="navigateToPage(this.value)">
+            <option value="" data-lang="en">Choose a Page</option>
+            <option value="" disabled data-lang="ar" style="display: none;">اختر صفحة</option>
+            <option value="" disabled data-lang="fr" style="display: none;">Choisissez une page</option>
+            
+            <option value="new-administrative-capital.html" data-lang="en">New Administrative Capital</option>
+            <option value="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</option>
+            <option value="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</option>
+        
+            <option value="suez-canal.html" data-lang="en">Suez Canal Expansion</option>
+            <option value="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</option>
+            <option value="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</option>
+        
+            <option value="transportation.html" data-lang="en">Transportation and Roads</option>
+            <option value="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</option>
+            <option value="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</option>
+        
+            <option value="energy-achievements.html" data-lang="en">Energy Achievements</option>
+            <option value="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</option>
+            <option value="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</option>
+        
+            <option value="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</option>
+            <option value="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</option>
+            <option value="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</option>
+        
+            <option value="healthcare.html" data-lang="en">Healthcare Improvements</option>
+            <option value="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</option>
+            <option value="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</option>
+        
+            <option value="tourism.html" data-lang="en">Tourism Revival</option>
+            <option value="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</option>
+            <option value="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</option>
+        
+            <option value="haya-kareema.html" data-lang="en">Haya Karima Initiative</option>
+            <option value="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</option>
+            <option value="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Karima</option>
+        
+            <option value="new-cities.html" data-lang="en">New Cities</option>
+            <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
+            <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
+        
+            <option value="feddan.html" data-lang="en">1,5 Million Feddan/option>
+            <option value="feddan.html" data-lang="ar" style="display: none;">المليون ونصف فدان</option>
+            <option value="feddan.html" data-lang="fr" style="display: none;">1,5 million de feddan</option>
+        
+        </select>
+        </nav>
+            <div class="controls">
+                <div class="language-selector">
+                    <div class="language-buttons">
+                        <button class="language-btn" onclick="changeLanguage('en')" id="lang-en">EN</button>
+                        <button class="language-btn" onclick="changeLanguage('ar')" id="lang-ar">عربي</button>
+                        <button class="language-btn" onclick="changeLanguage('fr')" id="lang-fr">FR</button>
+                    </div>
+                </div>
+                <div class="theme-toggle">
+                    <button class="theme-btn" id="theme-toggle">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="sharp-box">
+            <h1 data-lang="en">Healthcare Progress</h1>
+            <h1 data-lang="ar" style="display: none;">تطور الرعاية الصحية</h1>
+            <h1 data-lang="fr" style="display: none;">Progrès de la Santé</h1>
+        </div>
+
+        <div class="content-container">
+            <div class="content-box">
+                <p data-lang="en">
+                    Over the last decade, Egypt made major strides in public health, especially during the COVID-19 pandemic. The government launched more than 500 isolation centers, rolled out digital awareness platforms, and distributed over 100 million vaccine doses. The “100 Million Seha” campaign helped screen and protect millions before and during the outbreak. Major hospitals like the Saudi German Hospital supported the national system, but the success came from nationwide coordination and a rapid public health response.
+                
+                </p>
+                
+                <p data-lang="ar" style="display: none;">
+                    
+خلال العقد الأخير، حققت مصر إنجازات كبيرة في الصحة العامة، خصوصًا خلال جائحة كورونا. أنشأت الدولة أكثر من 500 مركز عزل، وأطلقت منصات توعية رقمية، ووزّعت أكثر من 100 مليون جرعة لقاح. ساعدت مبادرة "100 مليون صحة" في فحص وحماية ملايين المواطنين قبل الجائحة وأثناءها. ساهمت مستشفيات كبرى مثل المستشفى السعودي الألماني في دعم المنظومة، لكن النجاح الحقيقي كان نتيجة تنسيق وطني واستجابة صحية سريعة.
+                </p>
+                
+                <p data-lang="fr" style="display: none;">
+                    Au cours des dix dernières années, l'Égypte a accompli de grands progrès en santé publique, surtout pendant la pandémie de COVID-19. Plus de 500 centres d’isolement ont été mis en place, avec des plateformes numériques et plus de 100 millions de vaccins distribués. La campagne “100 millions de vies saines” a permis de protéger des millions de citoyens. Des hôpitaux comme le Saudi German Hospital ont soutenu l’effort, mais le succès reposait sur une réponse nationale rapide et efficace.
+                </p>
+            </div>
+            <div class="gallery-box">
+                <div class="gallery">
+                    <button class="gallery-btn left" onclick="navigateGallery(-1)">&#60;</button>
+                    <div class="gallery-slider" id="gallery-slider">
+                        <img src="h1.png" alt="Gallery Image 1">
+                        <img src="h2.png" alt="Gallery Image 2">
+                        <img src="h3.png" alt="Gallery Image 3">
+                        <img src="h4.png" alt="Gallery Image 4">
+                    </div>
+                    <button class="gallery-btn right" onclick="navigateGallery(1)">&#62;</button>
+                    <div class="gallery-indicators" id="gallery-indicators"></div>
+                </div>
+            </div>
+        </div>
+
+     
+        
+        
+    </main>
+              
+   
+              <footer>
+
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4 data-lang="en">Quick Links</h4>
+                        <h4 data-lang="ar" style="display: none;">روابط سريعة</h4>
+                        <h4 data-lang="fr" style="display: none;">Liens Rapides</h4>
+                        <ul class="footer-links">
+                            <li><a href="new-administrative-capital.html" data-lang="en">New Administrative Capital</a>
+                                <a href="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</a>
+                                <a href="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</a>
+                            </li>
+                            <li><a href="suez-canal.html" data-lang="en">Suez Canal Expansion</a>
+                                <a href="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</a>
+                                <a href="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</a>
+                            </li>
+                            <li><a href="transportation.html" data-lang="en">Transportation and Roads</a>
+                                <a href="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</a>
+                                <a href="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</a>
+                            </li>
+                            <li><a href="energy-achievements.html" data-lang="en">Energy Achievements</a>
+                                <a href="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</a>
+                                <a href="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</a>
+                            </li>
+                            <li><a href="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</a>
+                                <a href="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</a>
+                                <a href="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</a>
+                            </li>
+                            <li><a href="healthcare.html" data-lang="en">Healthcare Improvements</a>
+                                <a href="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</a>
+                                <a href="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</a>
+                            </li>
+                            <li><a href="tourism.html" data-lang="en">Tourism Revival</a>
+                                <a href="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</a>
+                                <a href="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</a>
+                            </li>
+                            <li><a href="haya-kareema.html" data-lang="en">Haya Kareema Initiative</a>
+                                <a href="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</a>
+                                <a href="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Kareema</a>
+                            </li>
+                            
+                            <li><a href="new-cities.html" data-lang="en">New Cities</a>
+                                <a href="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</a>
+                                <a href="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</a>
+                            </li>
+        
+                            <li><a href="feddan.html" data-lang="en">1,5 Million Feddan</a>
+                                <a href="feddan.html" data-lang="ar" style="display: none;">المليون ونصف فدان</a>
+                                <a href="feddan.html" data-lang="fr" style="display: none;">1,5 million de feddan</a>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4 data-lang="en">About Us</h4>
+                        <h4 data-lang="ar" style="display: none;">معلومات عنا</h4>
+                        <h4 data-lang="fr" style="display: none;">À Propos de Nous</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html" data-lang="en">Our Mission</a>
+                                <a href="about.html" data-lang="ar" style="display: none;">مهمتنا</a>
+                                <a href="about.html" data-lang="fr" style="display: none;">Notre Mission</a>
+                            </li>
+                            <li><a href="team.html" data-lang="en">Our Team</a>
+                                <a href="team.html" data-lang="ar" style="display: none;">فريقنا</a>
+                                <a href="team.html" data-lang="fr" style="display: none;">Notre Équipe</a>
+                            </li>
+                            <li><a href="https://nes.moe.gov.eg" data-lang="en">Contact Us</a>
+                                <a href="https://nes.moe.gov.eg" data-lang="ar" style="display: none;">اتصل بنا</a>
+                                <a href="https://nes.moe.gov.eg" data-lang="fr" style="display: none;">Contactez-Nous</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4 data-lang="en">Follow Us</h4>
+                        <h4 data-lang="ar" style="display: none;">تابعنا</h4>
+                        <h4 data-lang="fr" style="display: none;">Suivez-Nous</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://www.facebook.com/nesofficial1/" data-lang="en">Facebook</a>
+                                <a href="https://www.facebook.com/nesofficial1/" data-lang="ar" style="display: none;">فيسبوك</a>
+                                <a href="https://www.facebook.com/nesofficial1/" data-lang="fr" style="display: none;">Facebook</a>
+                            </li>
+                            <li><a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="en">YouTube</a>
+                                <a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="ar" style="display: none;">يوتيوب</a>
+                                <a href="https://www.youtube.com/channel/UCRKkuqZoxd-3SXrAQcYlvog" data-lang="fr" style="display: none;">YouTube</a>
+                            </li>
+                            <li><a href="https://www.instagram.com/nesofficial1" data-lang="en">Instagram</a>
+                                <a href="https://www.instagram.com/nesofficial1" data-lang="ar" style="display: none;">انستغرام</a>
+                                <a href="https://www.instagram.com/nesofficial1" data-lang="fr" style="display: none;">Instagram</a>
+                            </li>
+                                <li><a href="https://x.com/nes_egypt" data-lang="en">Twitter-X</a>
+                                <a href="https://x.com/nes_egypt" data-lang="ar" style="display: none;">تويتر-إكس</a>
+                                <a href="https://x.com/nes_egypt" data-lang="fr" style="display: none;">Twitter-X</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="copyright" data-lang="en">© 2025 Sunrise in Egypt. All rights reserved.</p>
+                <p class="copyright" data-lang="ar" style="display: none;">© 2025 شروق مصر. جميع الحقوق محفوظة.</p>
+                <p class="copyright" data-lang="fr" style="display: none;">© 2025 Aube sur l'Égypte. Tous droits réservés.</p>
+            
+        
+            </footer>
+        
+        
+    
+    <script>
+        const images = ["h1.png", "h2.png", "h3.png", "h4.png"];
+        let currentImageIndex = 0;
+        let autoScrollInterval;
+
+        function navigateGallery(direction) {
+        const slider = document.getElementById("gallery-slider");
+        const totalImages = images.length;
+    
+
+        
+        // Add duplicate images for seamless looping
+        if (direction === 1 && currentImageIndex === totalImages - 1) {
+            // Moving forward from the last image
+            slider.appendChild(slider.firstElementChild.cloneNode(true));
+            slider.style.transition = "transform 0.5s ease-in-out";
+            slider.style.transform = `translateX(-${(currentImageIndex + 1) * 100}%)`;
+    
+            setTimeout(() => {
+                slider.style.transition = "none";
+                slider.style.transform = `translateX(0)`;
+                slider.removeChild(slider.lastElementChild);
+                currentImageIndex = 0;
+                updateIndicators();
+            }, 500);
+            return;
+        }
+    
+        if (direction === -1 && currentImageIndex === 0) {
+            // Moving backward from the first image
+            slider.insertBefore(slider.lastElementChild.cloneNode(true), slider.firstElementChild);
+            slider.style.transition = "none";
+            slider.style.transform = `translateX(-100%)`;
+    
+            setTimeout(() => {
+                slider.style.transition = "transform 0.5s ease-in-out";
+                slider.style.transform = `translateX(0)`;
+            }, 0);
+    
+            setTimeout(() => {
+                slider.style.transition = "none";
+                slider.style.transform = `translateX(-${(totalImages - 1) * 100}%)`;
+                slider.removeChild(slider.firstElementChild);
+                currentImageIndex = totalImages - 1;
+                updateIndicators();
+            }, 500);
+            return;
+        }
+    
+        // Normal navigation
+        currentImageIndex = (currentImageIndex + direction + totalImages) % totalImages;
+        slider.style.transition = "transform 0.5s ease-in-out";
+        slider.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+        updateIndicators();
+    }
+        function updateIndicators() {
+            const indicators = document.getElementById("gallery-indicators");
+            indicators.innerHTML = "";
+            images.forEach((_, index) => {
+                const dot = document.createElement("div");
+                dot.className = "gallery-indicator" + (index === currentImageIndex ? " active" : "");
+                dot.onclick = () => setGalleryImage(index);
+                indicators.appendChild(dot);
+            });
+        }
+
+        function setGalleryImage(index) {
+            currentImageIndex = index;
+            document.getElementById("gallery-slider").style.transform = `translateX(-${index * 100}%)`;
+            updateIndicators();
+        }
+
+        function startAutoScroll() {
+            stopAutoScroll(); // Clear any existing interval
+            autoScrollInterval = setInterval(() => navigateGallery(1), 2000); // Auto-scroll every 5 seconds
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll("[data-lang]");
+            elements.forEach((el) => {
+                el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
+            });
+
+            // Update language button styles
+            document.querySelectorAll(".language-btn").forEach((btn) => {
+                btn.classList.remove("active");
+            });
+            document.getElementById(`lang-${lang}`).classList.add("active");
+        }
+
+        
+
+        // Initialize gallery and language on load
+        updateIndicators();
+        startAutoScroll(); // Start automatic scrolling
+        
+
+        // Pause auto-scroll on hover
+        document.querySelector(".gallery-box").addEventListener("mouseover", stopAutoScroll);
+        document.querySelector(".gallery-box").addEventListener("mouseout", startAutoScroll);
+    
+        function navigateToPage(page) {
+            if (page) {
+                window.location.href = page;
+            }
+        }
+
+
+
+
+
+        // Language and Theme Management
+document.addEventListener('DOMContentLoaded', function() {
+    // Apply saved preferences (language and theme)
+    const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+    const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+    
+    changeLanguage(savedLanguage);
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    
+    
+    // Language buttons
+    document.getElementById('lang-' + savedLanguage).classList.add('active');
+    
+    // Theme toggle button
+    const themeToggleBtn = document.getElementById('theme-toggle');
+            themeToggleBtn.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
+            });
+});
+
+function changeLanguage(lang) {
+    // Hide all language elements
+    const elements = document.querySelectorAll('[data-lang]');
+    elements.forEach(el => {
+        if (el.getAttribute('data-lang') === lang) {
+            el.style.display = '';
+        } else {
+            el.style.display = 'none';
+        }
+    });
+    
+    // Update active language button
+    document.querySelectorAll('.language-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById('lang-' + lang).classList.add('active');
+    
+    // Store language preference
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update document direction for Arabic
+    document.body.dir = lang === 'ar' ? 'ltr' : 'ltr';
+}
+
+
+
+    </script>
+</body>
+</html>
