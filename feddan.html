@@ -344,7 +344,115 @@
                 margin: 0 auto;
             }
 
+    .map-container {
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--light-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.map-box {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.map-description {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    color: var(--text-color);
+}
+.maps-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.maps-title {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.map-box {
+    background-color: var(--light-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-box h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.map-box iframe {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 1rem;
+}
+
+.map-description {
+    padding: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.map-description p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .map-box iframe {
+        height: 300px;
+    }
     
+    .maps-title {
+        font-size: 1.5rem;
+    }
+    
+    .map-box h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-box iframe {
+        height: 250px;
+    }
+    
+    .map-box {
+        padding: 1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -468,8 +576,69 @@
             </div>
         </div>
 
-     
+
+        <div class="maps-container">
+            <h2 class="maps-title" data-lang="en">Project Locations with Satellite Imagery</h2>
+            <h2 class="maps-title" data-lang="ar" style="display: none;">مواقع المشروع بالصور الفضائية</h2>
+            <h2 class="maps-title" data-lang="fr" style="display: none;">Emplacements du Projet avec Imagerie Satellite</h2>
+        </div>
+
+        <div class="map-container">
+            
+            <div class="map-box">
+                <h3 data-lang="en">Toshka Agricultural Project</h3>
+                <h3 data-lang="ar" style="display: none;">مشروع توشكى الزراعي</h3>
+                <h3 data-lang="fr" style="display: none;">Projet Agricole de Toshka</h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d229543.84666296075!2d31.462673147753903!3d22.79242099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x143aa165632f068d%3A0xc6706e1dd9f87fa7!2sToshka%2C%20Egypt!5e1!3m2!1sen!2sus!4v1683397927185!5m2!1sen!2sus"
+                    allowfullscreen="true" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                
+            </div>
+            <div class="map-description">
+                <p data-lang="en">The Toshka project, located in southern Egypt, is a major component of the 1.5 Million Feddan initiative. This area utilizes water from Lake Nasser through an innovative irrigation system.</p>
+                <p data-lang="ar" style="display: none;">يقع مشروع توشكى في جنوب مصر وهو مكون رئيسي من مبادرة المليون ونصف فدان. تستخدم هذه المنطقة مياه بحيرة ناصر من خلال نظام ري مبتكر.</p>
+                <p data-lang="fr" style="display: none;">Le projet Toshka, situé dans le sud de l'Égypte, est une composante majeure de l'initiative 1,5 million de feddan. Cette zone utilise l'eau du lac Nasser grâce à un système d'irrigation innovant.</p>
+            </div>
+            <div class="map-box">
+                <h3 data-lang="en">Minya Agricultural Development</h3>
+                <h3 data-lang="ar" style="display: none;">التنمية الزراعية بالمنيا</h3>
+                <h3 data-lang="fr" style="display: none;">Développement Agricole de Minya</h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d226097.61203588693!2d30.64382375!3d28.10922745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145b2545d228ee09%3A0xc52fb66ef89a872b!2sEl%20Minya%2C%20Qism%20El%20Minya%2C%20El%20Minya%2C%20Egypt!5e1!3m2!1sen!2sus!4v1683397927185!5m2!1sen!2sus"
+                    allowfullscreen="true" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+                <div class="map-description">
+                    <p data-lang="en">Minya's agricultural development area showcases modern farming techniques and sustainable agriculture practices, representing a key region in Upper Egypt's agricultural expansion.</p>
+                    <p data-lang="ar" style="display: none;">تعرض منطقة التنمية الزراعية في المنيا تقنيات الزراعة الحديثة وممارسات الزراعة المستدامة، وتمثل منطقة رئيسية في التوسع الزراعي في صعيد مصر.</p>
+                    <p data-lang="fr" style="display: none;">La zone de développement agricole de Minya présente des techniques agricoles modernes et des pratiques agricoles durables, représentant une région clé de l'expansion agricole de la Haute-Égypte.</p>
+                </div>
+            
+<div class="map-box">
+                <h3 data-lang="en">Farafra Oasis Development</h3>
+                <h3 data-lang="ar" style="display: none;">تنمية واحة الفرافرة</h3>
+                <h3 data-lang="fr" style="display: none;">Développement de l'Oasis de Farafra</h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d883095.7237809757!2d27.97368674976807!3d27.311681366797787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145979bad6aa2d0f%3A0x5e67c1faf47c4c0e!2sFarafra%2C%20New%20Valley%20Governorate%2C%20Egypt!5e1!3m2!1sen!2sus!4v1683397927185!5m2!1sen!2sus"
+                    allowfullscreen="true" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                </div>
+                <div class="map-description">
+                    <p data-lang="en">The Farafra Oasis development area is transforming desert land into productive agricultural zones using sustainable groundwater resources and modern irrigation techniques.</p>
+                    <p data-lang="ar" style="display: none;">تعمل منطقة تنمية واحة الفرافرة على تحويل الأراضي الصحراوية إلى مناطق زراعية منتجة باستخدام موارد المياه الجوفية المستدامة وتقنيات الري الحديثة.</p>
+                    <p data-lang="fr" style="display: none;">La zone de développement de l'oasis de Farafra transforme les terres désertiques en zones agricoles productives en utilisant des ressources durables en eau souterraine et des techniques d'irrigation modernes.</p>
+                </div>
+            
+        </div> 
         
+
         
     </main>
 
@@ -738,6 +907,7 @@ function changeLanguage(lang) {
     // Update document direction for Arabic
     document.body.dir = lang === 'ar' ? 'ltr' : 'ltr';
 }
+
 
 
 

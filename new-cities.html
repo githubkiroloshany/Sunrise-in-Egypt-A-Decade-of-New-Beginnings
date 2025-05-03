@@ -341,7 +341,86 @@
                 max-width: 1200px;
                 margin: 0 auto;
             }
-        
+            .map-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.map-item {
+    background-color: var(--light-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-item h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.map-frame {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.map-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.map-info {
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.map-info p {
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .map-frame {
+        height: 400px;
+    }
+    
+    .map-item {
+        padding: 1rem;
+    }
+    
+    .map-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    .map-info {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .map-frame {
+        height: 300px;
+    }
+    
+    .map-container {
+        padding: 0 0.5rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -466,7 +545,87 @@
             </div>
         </div>
 
-     
+    
+
+        <div class="map-container">
+            <!-- New Alamein City Map -->
+            <div class="map-item">
+                <h3 data-lang="en">New Alamein City</h3>
+                <h3 data-lang="ar" style="display: none;">مدينة العلمين الجديدة</h3>
+                <h3 data-lang="fr" style="display: none;">Nouvelle Ville d'Alamein</h3>
+                
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54900.37906781312!2d28.91555975!3d30.8947236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14597f864cdc2357%3A0x8eed51bf9b536ee2!2sNew%20Alamein%20City!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
+                            allowfullscreen="" loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div class="map-info">
+                    <p data-lang="en">
+                        New Alamein City is a new fourth-generation city located on Egypt's Mediterranean coast. The city spans 48,000 feddans and is designed to accommodate over 3 million residents. It features modern infrastructure, tourist areas, educational facilities, and sustainable development projects.
+                    </p>
+                    <p data-lang="ar" style="display: none;">
+                        مدينة العلمين الجديدة هي مدينة من الجيل الرابع تقع على ساحل البحر المتوسط في مصر. تمتد المدينة على مساحة 48,000 فدان وتم تصميمها لاستيعاب أكثر من 3 ملايين نسمة. تتميز بالبنية التحتية الحديثة والمناطق السياحية والمرافق التعليمية ومشاريع التنمية المستدامة.
+                    </p>
+                    <p data-lang="fr" style="display: none;">
+                        La Nouvelle Ville d'Alamein est une ville de quatrième génération située sur la côte méditerranéenne de l'Égypte. La ville s'étend sur 48 000 feddans et est conçue pour accueillir plus de 3 millions d'habitants. Elle dispose d'infrastructures modernes, de zones touristiques, d'établissements d'enseignement et de projets de développement durable.
+                    </p>
+                </div>
+            </div>
+        
+            <!-- Galala City Map -->
+            <div class="map-item">
+                <h3 data-lang="en">Galala City</h3>
+                <h3 data-lang="ar" style="display: none;">مدينة الجلالة</h3>
+                <h3 data-lang="fr" style="display: none;">Ville de Galala</h3>
+                
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55476.31774419089!2d32.65138075!3d29.6741665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145838be0b7c76d9%3A0x924bc83fab359f15!2sGalala%20City!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
+                            allowfullscreen="" loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div class="map-info">
+                    <p data-lang="en">
+                        Galala City is a new urban development built on the Galala plateau overlooking the Red Sea. The city features a state-of-the-art university, tourist resorts, industrial zones, and residential areas. This comprehensive development project represents a new model for sustainable urban communities in Egypt.
+                    </p>
+                    <p data-lang="ar" style="display: none;">
+                        مدينة الجلالة هي تنمية حضرية جديدة مبنية على هضبة الجلالة المطلة على البحر الأحمر. تضم المدينة جامعة حديثة ومنتجعات سياحية ومناطق صناعية ومناطق سكنية. يمثل هذا المشروع التنموي الشامل نموذجاً جديداً للمجتمعات الحضرية المستدامة في مصر.
+                    </p>
+                    <p data-lang="fr" style="display: none;">
+                        La ville de Galala est un nouveau développement urbain construit sur le plateau de Galala surplombant la mer Rouge. La ville comprend une université moderne, des complexes touristiques, des zones industrielles et des zones résidentielles. Ce projet de développement complet représente un nouveau modèle de communautés urbaines durables en Égypte.
+                    </p>
+                </div>
+            </div>
+        
+            <!-- East Port Said Map -->
+            <div class="map-item">
+                <h3 data-lang="en">East Port Said</h3>
+                <h3 data-lang="ar" style="display: none;">شرق بورسعيد</h3>
+                <h3 data-lang="fr" style="display: none;">Port-Saïd Est</h3>
+                
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54900.37906781312!2d32.31555975!3d31.2747236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f99c3e939e6b99%3A0x4caa77589d0ce44e!2sEast%20Port%20Said!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
+                            allowfullscreen="" loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div class="map-info">
+                    <p data-lang="en">
+                        East Port Said is a major development project and strategic hub at the northern entrance of the Suez Canal. It features one of the world's largest container terminals, an industrial zone, logistics center, and residential communities. The project plays a vital role in Egypt's maritime and economic development.
+                    </p>
+                    <p data-lang="ar" style="display: none;">
+                        شرق بورسعيد هو مشروع تنموي رئيسي ومركز استراتيجي عند المدخل الشمالي لقناة السويس. يضم واحداً من أكبر محطات الحاويات في العالم ومنطقة صناعية ومركزاً للخدمات اللوجستية ومجتمعات سكنية. يلعب المشروع دوراً حيوياً في التنمية البحرية والاقتصادية لمصر.
+                    </p>
+                    <p data-lang="fr" style="display: none;">
+                        Port-Saïd Est est un projet de développement majeur et un hub stratégique à l'entrée nord du canal de Suez. Il comprend l'un des plus grands terminaux à conteneurs au monde, une zone industrielle, un centre logistique et des communautés résidentielles. Le projet joue un rôle vital dans le développement maritime et économique de l'Égypte.
+                    </p>
+                </div>
+            </div>
+        </div>
         
         
     </main>
