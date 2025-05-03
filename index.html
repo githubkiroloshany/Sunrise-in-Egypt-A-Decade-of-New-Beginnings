@@ -629,28 +629,24 @@
             </div>
         </div>
         
-        <!-- Enhanced Comments Section -->
-        <div class="comments-section">
-            <h2 data-lang="en">Comments</h2>
-            <h2 data-lang="ar" style="display: none;">التعليقات</h2>
-            <h2 data-lang="fr" style="display: none;">Commentaires</h2>
-            
-            <form id="comment-form" class="comment-form">
-                <div class="form-group">
-                    <label for="author-name">Your Name</label>
-                    <input type="text" id="author-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="comment-text">Your Comment</label>
-                    <textarea id="comment-text" required></textarea>
-                </div>
-                <button type="submit">Submit Comment</button>
-            </form>
-        
-            <div id="comments-container">
-                <!-- Comments will be loaded here -->
-            </div>
-        </div>
+        <!-- Comments Section -->
+<div class="comments-section">
+    <h2 data-lang="en">Comments</h2>
+    <h2 data-lang="ar" style="display: none;">التعليقات</h2>
+    <h2 data-lang="fr" style="display: none;">Commentaires</h2>
+    
+    <!-- Utterances Comments -->
+    <div class="comments-container">
+        <script src="https://utteranc.es/client.js"
+                repo="githubkiroloshany/sunrise-in-egypt"
+                issue-term="pathname"
+                label="comment"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
     </main>
 
     <footer>
@@ -806,182 +802,6 @@ function navigateToPage(page) {
             }
         }
 
-        // Enhanced Comment System Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const commentForm = document.getElementById('comment-form');
-    const commentsContainer = document.getElementById('comments-container');
-    const alertSuccess = document.getElementById('alert-success');
-    const alertError = document.getElementById('alert-error');
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Load existing comments from GitHub
-    loadCommentsFromGitHub();
-    
-    // Handle form submission
-    commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitComment();
-    });
-    
-    async function loadCommentsFromGitHub() {
-        try {
-            const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json');
-            const data = await response.json();
-            const content = JSON.parse(atob(data.content));
-            const pageKey = currentPage.replace('.html', '');
-            const comments = content[pageKey] || [];
-            displayComments(comments);
-        } catch (error) {
-            console.error('Error loading comments:', error);
-            commentsContainer.innerHTML = '<p>Error loading comments. Please try again later.</p>';
-        }
-    }
-    
-    async function submitComment() {
-        const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-        let authorName, commentText;
-        
-        if (currentLang === 'en') {
-            authorName = document.getElementById('author-name').value.trim();
-            commentText = document.getElementById('comment-text').value.trim();
-        } else if (currentLang === 'ar') {
-            authorName = document.getElementById('author-name-ar').value.trim();
-            commentText = document.getElementById('comment-text-ar').value.trim();
-        } else if (currentLang === 'fr') {
-            authorName = document.getElementById('author-name-fr').value.trim();
-            commentText = document.getElementById('comment-text-fr').value.trim();
-        }
-        
-        if (!authorName || !commentText) {
-            showAlert(alertError);
-            return;
-        }
-        
-        try {
-            // Get current comments
-            const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json');
-            const data = await response.json();
-            const content = JSON.parse(atob(data.content));
-            const pageKey = currentPage.replace('.html', '');
-            
-            if (!content[pageKey]) {
-                content[pageKey] = [];
-            }
-            
-            // Add new comment
-            const newComment = {
-                id: generateCommentId(),
-                author: authorName,
-                text: commentText,
-                date: new Date().toISOString(),
-                language: currentLang,
-                likes: 0,
-                liked: false
-            };
-            
-            content[pageKey].push(newComment);
-            
-            // Update comments file
-            await updateCommentsFile(content, data.sha);
-            
-            // Clear form
-            if (currentLang === 'en') {
-                document.getElementById('author-name').value = '';
-                document.getElementById('comment-text').value = '';
-            } else if (currentLang === 'ar') {
-                document.getElementById('author-name-ar').value = '';
-                document.getElementById('comment-text-ar').value = '';
-            } else if (currentLang === 'fr') {
-                document.getElementById('author-name-fr').value = '';
-                document.getElementById('comment-text-fr').value = '';
-            }
-            
-            showAlert(alertSuccess);
-            loadCommentsFromGitHub();
-        } catch (error) {
-            console.error('Error submitting comment:', error);
-            showAlert(alertError);
-        }
-    }
-    
-    async function updateCommentsFile(content, sha) {
-        const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token YOUR_GITHUB_TOKEN_HERE`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message: 'Update comments',
-                content: btoa(JSON.stringify(content, null, 2)),
-                sha: sha
-            })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to update comments');
-        }
-    }
-    
-    // Keep these existing helper functions
-    function generateCommentId() {
-        return 'comment_' + new Date().getTime() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-    
-    function showAlert(alertElement) {
-        alertElement.style.display = 'block';
-        setTimeout(function() {
-            alertElement.style.display = 'none';
-        }, 3000);
-    }
-    
-    function displayComments(comments) {
-        if (comments.length === 0) {
-            const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-            const noCommentsMsg = {
-                en: 'No comments yet. Be the first to comment!',
-                ar: 'لا توجد تعليقات حتى الآن. كن أول من يعلق!',
-                fr: 'Pas encore de commentaires. Soyez le premier à commenter!'
-            };
-            commentsContainer.innerHTML = `<p class="no-comments">${noCommentsMsg[currentLang]}</p>`;
-            return;
-        }
-        
-        commentsContainer.innerHTML = comments.map(comment => `
-            <div class="comment" data-id="${comment.id}">
-                <div class="comment-author">${comment.author}</div>
-                <p>${comment.text}</p>
-                <div class="comment-meta">
-                    <small>${formatDate(comment.date)}</small>
-                    <div class="reactions">
-                        <button class="reaction-btn${comment.liked ? ' active' : ''}" onclick="toggleLike('${comment.id}')">
-                            👍 ${comment.likes}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    // Keep the existing formatDate function
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-        const options = { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric', 
-            hour: '2-digit', 
-            minute: '2-digit' 
-        };
-        return date.toLocaleDateString(
-            currentLang === 'en' ? 'en-US' : 
-            currentLang === 'ar' ? 'ar-EG' : 
-            'fr-FR', 
-            options
-        );
-    }
-});
          
     </script>
 </body>
