@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="comments.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunrise in Egypt: A Decade of New Beginnings</title>
@@ -634,51 +635,20 @@
             <h2 data-lang="ar" style="display: none;">التعليقات</h2>
             <h2 data-lang="fr" style="display: none;">Commentaires</h2>
             
-            <!-- Alert Messages -->
-            <div id="alert-success" class="alert alert-success">
-                <span data-lang="en">Comment posted successfully!</span>
-                <span data-lang="ar" style="display: none;">تم نشر التعليق بنجاح!</span>
-                <span data-lang="fr" style="display: none;">Commentaire posté avec succès!</span>
-            </div>
-            
-            <div id="alert-error" class="alert alert-error">
-                <span data-lang="en">Please fill in all fields before submitting.</span>
-                <span data-lang="ar" style="display: none;">يرجى ملء جميع الحقول قبل الإرسال.</span>
-                <span data-lang="fr" style="display: none;">Veuillez remplir tous les champs avant de soumettre.</span>
-            </div>
-            
-            <!-- Comment Form -->
             <form id="comment-form" class="comment-form">
                 <div class="form-group">
-                    <label for="author-name" data-lang="en">Your Name</label>
-                    <label for="author-name" data-lang="ar" style="display: none;">اسمك</label>
-                    <label for="author-name" data-lang="fr" style="display: none;">Votre Nom</label>
-                    
-                    <input type="text" id="author-name" data-lang="en" placeholder="Enter your name">
-                    <input type="text" id="author-name-ar" data-lang="ar" style="display: none;" placeholder="أدخل اسمك">
-                    <input type="text" id="author-name-fr" data-lang="fr" style="display: none;" placeholder="Entrez votre nom">
+                    <label for="author-name">Your Name</label>
+                    <input type="text" id="author-name" required>
                 </div>
-                
                 <div class="form-group">
-                    <label for="comment-text" data-lang="en">Your Comment</label>
-                    <label for="comment-text" data-lang="ar" style="display: none;">تعليقك</label>
-                    <label for="comment-text" data-lang="fr" style="display: none;">Votre Commentaire</label>
-                    
-                    <textarea id="comment-text" data-lang="en" 
-                              placeholder="Write your comment here... (Press Enter to submit)"></textarea>
-                    <textarea id="comment-text-ar" data-lang="ar" 
-                              style="display: none;" placeholder="اكتب تعليقك هنا... (اضغط Enter للإرسال)"></textarea>
-                    <textarea id="comment-text-fr" data-lang="fr" 
-                              style="display: none;" placeholder="Écrivez votre commentaire ici... (Appuyez sur Entrée pour envoyer)"></textarea>
+                    <label for="comment-text">Your Comment</label>
+                    <textarea id="comment-text" required></textarea>
                 </div>
-                
-                <button type="submit" id="submit-comment" data-lang="en">Submit Comment</button>
-                <button type="submit" id="submit-comment-ar" data-lang="ar" style="display: none;">إرسال التعليق</button>
-                <button type="submit" id="submit-comment-fr" data-lang="fr" style="display: none;">Envoyer le Commentaire</button>
+                <button type="submit">Submit Comment</button>
             </form>
-            
+        
             <div id="comments-container">
-                <!-- Comments will be loaded here dynamically -->
+                <!-- Comments will be loaded here -->
             </div>
         </div>
     </main>
@@ -837,261 +807,182 @@ function navigateToPage(page) {
         }
 
         // Enhanced Comment System Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const commentForm = document.getElementById('comment-form');
-            const commentsContainer = document.getElementById('comments-container');
-            const alertSuccess = document.getElementById('alert-success');
-            const alertError = document.getElementById('alert-error');
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+document.addEventListener('DOMContentLoaded', function() {
+    const commentForm = document.getElementById('comment-form');
+    const commentsContainer = document.getElementById('comments-container');
+    const alertSuccess = document.getElementById('alert-success');
+    const alertError = document.getElementById('alert-error');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Load existing comments from GitHub
+    loadCommentsFromGitHub();
+    
+    // Handle form submission
+    commentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitComment();
+    });
+    
+    async function loadCommentsFromGitHub() {
+        try {
+            const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json');
+            const data = await response.json();
+            const content = JSON.parse(atob(data.content));
+            const pageKey = currentPage.replace('.html', '');
+            const comments = content[pageKey] || [];
+            displayComments(comments);
+        } catch (error) {
+            console.error('Error loading comments:', error);
+            commentsContainer.innerHTML = '<p>Error loading comments. Please try again later.</p>';
+        }
+    }
+    
+    async function submitComment() {
+        const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+        let authorName, commentText;
+        
+        if (currentLang === 'en') {
+            authorName = document.getElementById('author-name').value.trim();
+            commentText = document.getElementById('comment-text').value.trim();
+        } else if (currentLang === 'ar') {
+            authorName = document.getElementById('author-name-ar').value.trim();
+            commentText = document.getElementById('comment-text-ar').value.trim();
+        } else if (currentLang === 'fr') {
+            authorName = document.getElementById('author-name-fr').value.trim();
+            commentText = document.getElementById('comment-text-fr').value.trim();
+        }
+        
+        if (!authorName || !commentText) {
+            showAlert(alertError);
+            return;
+        }
+        
+        try {
+            // Get current comments
+            const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json');
+            const data = await response.json();
+            const content = JSON.parse(atob(data.content));
+            const pageKey = currentPage.replace('.html', '');
             
-            // Load existing comments from localStorage
-            loadComments();
-            
-            // Handle form submission
-            commentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitComment();
-            });
-            
-            // Handle Enter key press in textarea
-            const commentTextareas = [
-                document.getElementById('comment-text'),
-                document.getElementById('comment-text-ar'),
-                document.getElementById('comment-text-fr')
-            ];
-            
-            commentTextareas.forEach(textarea => {
-                if (textarea) {
-                    textarea.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            submitComment();
-                        }
-                    });
-                }
-            });
-            
-            function submitComment() {
-                // Get current language
-                const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-                
-                // Get input values based on current language
-                let authorName, commentText;
-                
-                if (currentLang === 'en') {
-                    authorName = document.getElementById('author-name').value.trim();
-                    commentText = document.getElementById('comment-text').value.trim();
-                } else if (currentLang === 'ar') {
-                    authorName = document.getElementById('author-name-ar').value.trim();
-                    commentText = document.getElementById('comment-text-ar').value.trim();
-                } else if (currentLang === 'fr') {
-                    authorName = document.getElementById('author-name-fr').value.trim();
-                    commentText = document.getElementById('comment-text-fr').value.trim();
-                }
-                
-                // Validate inputs
-                if (!authorName || !commentText) {
-                    showAlert(alertError);
-                    return;
-                }
-                
-                // Create comment object
-                const comment = {
-                    id: generateCommentId(),
-                    author: authorName,
-                    text: commentText,
-                    date: new Date().toISOString(),
-                    page: currentPage,
-                    language: currentLang,
-                    likes: 0,
-                    liked: false
-                };
-                
-                // Save comment to localStorage
-                saveComment(comment);
-                
-                // Clear form fields
-                if (currentLang === 'en') {
-                    document.getElementById('author-name').value = '';
-                    document.getElementById('comment-text').value = '';
-                } else if (currentLang === 'ar') {
-                    document.getElementById('author-name-ar').value = '';
-                    document.getElementById('comment-text-ar').value = '';
-                } else if (currentLang === 'fr') {
-                    document.getElementById('author-name-fr').value = '';
-                    document.getElementById('comment-text-fr').value = '';
-                }
-                
-                // Show success message
-                showAlert(alertSuccess);
-                
-                // Reload comments
-                loadComments();
+            if (!content[pageKey]) {
+                content[pageKey] = [];
             }
             
-            function generateCommentId() {
-                return 'comment_' + new Date().getTime() + '_' + Math.random().toString(36).substr(2, 9);
+            // Add new comment
+            const newComment = {
+                id: generateCommentId(),
+                author: authorName,
+                text: commentText,
+                date: new Date().toISOString(),
+                language: currentLang,
+                likes: 0,
+                liked: false
+            };
+            
+            content[pageKey].push(newComment);
+            
+            // Update comments file
+            await updateCommentsFile(content, data.sha);
+            
+            // Clear form
+            if (currentLang === 'en') {
+                document.getElementById('author-name').value = '';
+                document.getElementById('comment-text').value = '';
+            } else if (currentLang === 'ar') {
+                document.getElementById('author-name-ar').value = '';
+                document.getElementById('comment-text-ar').value = '';
+            } else if (currentLang === 'fr') {
+                document.getElementById('author-name-fr').value = '';
+                document.getElementById('comment-text-fr').value = '';
             }
             
-            function saveComment(comment) {
-                // Get existing comments
-                let comments = JSON.parse(localStorage.getItem('comments')) || [];
-                
-                // Add new comment
-                comments.push(comment);
-                
-                // Save to localStorage
-                localStorage.setItem('comments', JSON.stringify(comments));
-                
-                // Create a "comments" folder structure in localStorage
-                const pageFolderKey = 'comments_' + comment.page.replace('.html', '');
-                let pageComments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
-                pageComments.push(comment);
-                localStorage.setItem(pageFolderKey, JSON.stringify(pageComments));
-            }
-            
-            function loadComments() {
-                // Get current page
-                const pageFolderKey = 'comments_' + currentPage.replace('.html', '');
-                
-                // Get comments for current page
-                let comments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
-                
-                // Sort comments (newest first)
-                comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                // Clear comments container
-                commentsContainer.innerHTML = '';
-                
-                // If no comments, show message
-                if (comments.length === 0) {
-                    const noCommentsMsg = document.createElement('p');
-                    noCommentsMsg.className = 'no-comments';
-                    
-                    // Get current language
-                    const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-                    
-                    if (currentLang === 'en') {
-                        noCommentsMsg.textContent = 'No comments yet. Be the first to comment!';
-                    } else if (currentLang === 'ar') {
-                        noCommentsMsg.textContent = 'لا توجد تعليقات حتى الآن. كن أول من يعلق!';
-                    } else if (currentLang === 'fr') {
-                        noCommentsMsg.textContent = 'Pas encore de commentaires. Soyez le premier à commenter!';
-                    }
-                    
-                    commentsContainer.appendChild(noCommentsMsg);
-                    return;
-                }
-                
-                // Display comments
-                comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.className = 'comment';
-                    commentElement.setAttribute('data-id', comment.id);
-                    
-                    const author = document.createElement('div');
-                    author.className = 'comment-author';
-                    author.textContent = comment.author;
-                    
-                    const text = document.createElement('p');
-                    text.textContent = comment.text;
-                    
-                    const meta = document.createElement('div');
-                    meta.className = 'comment-meta';
-                    
-                    const date = document.createElement('small');
-                    date.textContent = formatDate(comment.date);
-                    
-                    const reactions = document.createElement('div');
-                    reactions.className = 'reactions';
-                    
-                    const likeBtn = document.createElement('button');
-                    likeBtn.className = 'reaction-btn' + (comment.liked ? ' active' : '');
-                    likeBtn.innerHTML = '👍 ' + comment.likes;
-                    likeBtn.addEventListener('click', function() {
-                        toggleLike(comment.id);
-                    });
-                    
-                    reactions.appendChild(likeBtn);
-                    meta.appendChild(date);
-                    meta.appendChild(reactions);
-                    
-                    commentElement.appendChild(author);
-                    commentElement.appendChild(text);
-                    commentElement.appendChild(meta);
-                    
-                    commentsContainer.appendChild(commentElement);
-                });
-            }
-            
-            function toggleLike(commentId) {
-                // Get all comments
-                let allComments = JSON.parse(localStorage.getItem('comments')) || [];
-                
-                // Get current page folder
-                const pageFolderKey = 'comments_' + currentPage.replace('.html', '');
-                let pageComments = JSON.parse(localStorage.getItem(pageFolderKey)) || [];
-                
-                // Find comment by ID in both arrays
-                const allCommentsIndex = allComments.findIndex(c => c.id === commentId);
-                const pageCommentsIndex = pageComments.findIndex(c => c.id === commentId);
-                
-                if (allCommentsIndex !== -1 && pageCommentsIndex !== -1) {
-                    // Toggle liked state
-                    const newLikedState = !allComments[allCommentsIndex].liked;
-                    
-                    // Update comment in all comments
-                    allComments[allCommentsIndex].liked = newLikedState;
-                    allComments[allCommentsIndex].likes = newLikedState 
-                        ? allComments[allCommentsIndex].likes + 1 
-                        : Math.max(0, allComments[allCommentsIndex].likes - 1);
-                    
-                    // Update comment in page comments
-                    pageComments[pageCommentsIndex].liked = newLikedState;
-                    pageComments[pageCommentsIndex].likes = newLikedState 
-                        ? pageComments[pageCommentsIndex].likes + 1 
-                        : Math.max(0, pageComments[pageCommentsIndex].likes - 1);
-                    
-                    // Save updated comments
-                    localStorage.setItem('comments', JSON.stringify(allComments));
-                    localStorage.setItem(pageFolderKey, JSON.stringify(pageComments));
-                    
-                    // Reload comments to reflect changes
-                    loadComments();
-                }
-            }
-            
-            function formatDate(dateString) {
-                const date = new Date(dateString);
-                const currentLang = localStorage.getItem('preferredLanguage') || 'en';
-                
-                const options = { 
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric', 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                };
-                
-                return date.toLocaleDateString(
-                    currentLang === 'en' ? 'en-US' : 
-                    currentLang === 'ar' ? 'ar-EG' : 
-                    'fr-FR', 
-                    options
-                );
-            }
-            
-            function showAlert(alertElement) {
-                // Show alert
-                alertElement.style.display = 'block';
-                
-                // Hide after 3 seconds
-                setTimeout(function() {
-                    alertElement.style.display = 'none';
-                }, 3000);
-            }
+            showAlert(alertSuccess);
+            loadCommentsFromGitHub();
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+            showAlert(alertError);
+        }
+    }
+    
+    async function updateCommentsFile(content, sha) {
+        const response = await fetch('https://api.github.com/repos/githubkiroloshany/sunrise-in-egypt/contents/comments.json', {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token YOUR_GITHUB_TOKEN_HERE`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: 'Update comments',
+                content: btoa(JSON.stringify(content, null, 2)),
+                sha: sha
+            })
         });
         
+        if (!response.ok) {
+            throw new Error('Failed to update comments');
+        }
+    }
+    
+    // Keep these existing helper functions
+    function generateCommentId() {
+        return 'comment_' + new Date().getTime() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+    
+    function showAlert(alertElement) {
+        alertElement.style.display = 'block';
+        setTimeout(function() {
+            alertElement.style.display = 'none';
+        }, 3000);
+    }
+    
+    function displayComments(comments) {
+        if (comments.length === 0) {
+            const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+            const noCommentsMsg = {
+                en: 'No comments yet. Be the first to comment!',
+                ar: 'لا توجد تعليقات حتى الآن. كن أول من يعلق!',
+                fr: 'Pas encore de commentaires. Soyez le premier à commenter!'
+            };
+            commentsContainer.innerHTML = `<p class="no-comments">${noCommentsMsg[currentLang]}</p>`;
+            return;
+        }
+        
+        commentsContainer.innerHTML = comments.map(comment => `
+            <div class="comment" data-id="${comment.id}">
+                <div class="comment-author">${comment.author}</div>
+                <p>${comment.text}</p>
+                <div class="comment-meta">
+                    <small>${formatDate(comment.date)}</small>
+                    <div class="reactions">
+                        <button class="reaction-btn${comment.liked ? ' active' : ''}" onclick="toggleLike('${comment.id}')">
+                            👍 ${comment.likes}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Keep the existing formatDate function
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        };
+        return date.toLocaleDateString(
+            currentLang === 'en' ? 'en-US' : 
+            currentLang === 'ar' ? 'ar-EG' : 
+            'fr-FR', 
+            options
+        );
+    }
+});
+         
     </script>
 </body>
 </html>
