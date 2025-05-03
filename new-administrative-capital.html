@@ -335,6 +335,33 @@
             width: 100%
             }
 
+            .custom-audio-player {
+    background-color: var(--light-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.custom-audio-player:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/* Style audio player controls for better visibility in dark mode */
+.dark-mode .custom-audio-player {
+    filter: invert(0.85);
+}
+.audio-box {
+    background-color: var(--light-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 1 1 45%;
+            min-width: 300px;
+            margin-top: 2rem;
+}
 
 </style>
 </head>
@@ -361,10 +388,6 @@
             <option value="" disabled data-lang="ar" style="display: none;">اختر صفحة</option>
             <option value="" disabled data-lang="fr" style="display: none;">Choisissez une page</option>
             
-            <option value="new-administrative-capital.html" data-lang="en">New Administrative Capital</option>
-            <option value="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</option>
-            <option value="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</option>
-        
             <option value="suez-canal.html" data-lang="en">Suez Canal Expansion</option>
             <option value="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</option>
             <option value="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</option>
@@ -397,7 +420,7 @@
             <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
             <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
         
-            <option value="feddan.html" data-lang="en">1,5 Million Feddan/option>
+            <option value="feddan.html" data-lang="en">1,5 Million Feddan</option>
                 <option value="feddan.html" data-lang="ar" style="display: none;">المليون ونصف فدان</option>
                 <option value="feddan.html" data-lang="fr" style="display: none;">1,5 million de feddan</option>
             
@@ -450,7 +473,31 @@
             </div>
         </div>
 
-            
+        <div class="content-container">
+            <div class="audio-box">
+                <h2 style="text-align: center; margin-bottom: 20px;">
+                    <span data-lang="en">New Administrative Capital Podcast Episode</span>
+                    <span data-lang="ar" style="display: none;">حلقة بودكاست العاصمة الإدارية الجديدة</span>
+                    <span data-lang="fr" style="display: none;">Épisode de Podcast sur la Nouvelle Capitale Administrative</span>
+                </h2>
+                
+                <div class="audio-player-container" style="max-width: 600px; margin: 0 auto;">
+                    <audio id="capital-audio" class="custom-audio-player" controls style="width: 100%;">
+                        <source src="capital.mp3" type="audio/mpeg">
+                        <span data-lang="en">Your browser does not support the audio element.</span>
+                        <span data-lang="ar" style="display: none;">متصفحك لا يدعم عنصر الصوت.</span>
+                        <span data-lang="fr" style="display: none;">Votre navigateur ne prend pas en charge l'élément audio.</span>
+                    </audio>
+                </div>
+                
+                <div class="audio-description" style="margin-top: 20px; text-align: center;">
+                    <p data-lang="en">Join us for an in-depth discussion about Egypt's New Administrative Capital. In this episode, we explore the vision behind this mega-project, its key developments, and how it's shaping Egypt's future.</p>
+                    <p data-lang="ar" style="display: none;">انضم إلينا في حوار معمق حول العاصمة الإدارية الجديدة لمصر. في هذه الحلقة، نستكشف الرؤية وراء هذا المشروع الضخم، وأهم تطوراته، وكيف يشكل مستقبل مصر.</p>
+                    <p data-lang="fr" style="display: none;">Rejoignez-nous pour une discussion approfondie sur la Nouvelle Capitale Administrative d'Égypte. Dans cet épisode, nous explorons la vision derrière ce méga-projet, ses développements clés et son impact sur l'avenir de l'Égypte.</p>
+                </div>
+            </div>
+        </div>   
+        
     </main>
           
    
@@ -512,10 +559,7 @@
                         <h4 data-lang="ar" style="display: none;">معلومات عنا</h4>
                         <h4 data-lang="fr" style="display: none;">À Propos de Nous</h4>
                         <ul class="footer-links">
-                            <li><a href="about.html" data-lang="en">Our Mission</a>
-                                <a href="about.html" data-lang="ar" style="display: none;">مهمتنا</a>
-                                <a href="about.html" data-lang="fr" style="display: none;">Notre Mission</a>
-                            </li>
+                            
                             <li><a href="team.html" data-lang="en">Our Team</a>
                                 <a href="team.html" data-lang="ar" style="display: none;">فريقنا</a>
                                 <a href="team.html" data-lang="fr" style="display: none;">Notre Équipe</a>
@@ -676,26 +720,35 @@
 
         // Language and Theme Management
 document.addEventListener('DOMContentLoaded', function() {
-    // Apply saved preferences (language and theme)
+    // Get saved preferences as soon as page loads
     const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
     const savedTheme = localStorage.getItem('preferredTheme') || 'light';
-    
+
+    // Apply saved language immediately
     changeLanguage(savedLanguage);
+    document.getElementById('lang-' + savedLanguage).classList.add('active');
+
+    // Apply saved theme immediately
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
     }
-    
-    
-    // Language buttons
-    document.getElementById('lang-' + savedLanguage).classList.add('active');
-    
-    // Theme toggle button
+
+    // Language buttons event listeners
+    document.querySelectorAll('.language-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.id.replace('lang-', '');
+            localStorage.setItem('preferredLanguage', lang); // Save to localStorage
+            changeLanguage(lang);
+        });
+    });
+
+    // Theme toggle event listener
     const themeToggleBtn = document.getElementById('theme-toggle');
-            themeToggleBtn.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                const isDarkMode = document.body.classList.contains('dark-mode');
-                localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
-            });
+    themeToggleBtn.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light'); // Save to localStorage
+    });
 });
 
 function changeLanguage(lang) {

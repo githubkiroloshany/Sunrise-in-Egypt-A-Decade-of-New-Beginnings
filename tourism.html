@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tourism Revival</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-color: rgba(255, 174, 0);
@@ -165,6 +168,11 @@
             flex-wrap: nowrap;
             gap: 2rem;
         }
+        .graph-container {
+            display: grid;
+            flex-wrap: nowrap;
+            gap: 2rem;
+        }
 
         .content-box, .gallery-box {
             background-color: var(--light-bg);
@@ -174,6 +182,18 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             flex: 1 1 45%;
             min-width: 300px;
+
+        }
+
+        .graph-box{
+            background-color: var(--light-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 1 1 45%;
+            width: 100%;
+            margin-top: 2.5rem;
 
         }
 
@@ -344,7 +364,15 @@
             color: var(--primary-color);
         }
       
-        
+       
+
+
+
+body * {
+    text-decoration: unset;
+}
+
+
     </style>
 </head>
 <body>
@@ -394,10 +422,6 @@
             <option value="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</option>
             <option value="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</option>
         
-            <option value="tourism.html" data-lang="en">Tourism Revival</option>
-            <option value="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</option>
-            <option value="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</option>
-        
             <option value="haya-kareema.html" data-lang="en">Haya Karima Initiative</option>
             <option value="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</option>
             <option value="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Karima</option>
@@ -406,7 +430,7 @@
             <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
             <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
         
-            <option value="feddan.html" data-lang="en">1,5 Million Feddan/option>
+            <option value="feddan.html" data-lang="en">1,5 Million Feddan<s/option>
                 <option value="feddan.html" data-lang="ar" style="display: none;">المليون ونصف فدان</option>
                 <option value="feddan.html" data-lang="fr" style="display: none;">1,5 million de feddan</option>
             
@@ -476,9 +500,26 @@
             </div>
         </div>
 
-     
-        
-        
+        <div class="graph-container">
+            <div class="graph-box" style="flex: 1;">
+                <h2 style="text-align: center; margin-bottom: 20px;">
+                    <span data-lang="en">Tourist Arrivals (2015-2025)</span>
+                    <span data-lang="ar" style="display: none;">أعداد السياح (2015-2025)</span>
+                    <span data-lang="fr" style="display: none;">Arrivées Touristiques (2015-2025)</span>
+                </h2>
+                <canvas id="touristsChart"></canvas>
+            </div>
+            <br>
+            <div class="graph-box" style="flex: 1;">
+                <h2 style="text-align: center; margin-bottom: 20px;">
+                    <span data-lang="en">Tourism Revenue (2015-2025)</span>
+                    <span data-lang="ar" style="display: none;">الإيرادات السياحية (2015-2025)</span>
+                    <span data-lang="fr" style="display: none;">Revenus Touristiques (2015-2025)</span>
+                </h2>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
     </main>
 
     
@@ -542,10 +583,7 @@
                 <h4 data-lang="ar" style="display: none;">معلومات عنا</h4>
                 <h4 data-lang="fr" style="display: none;">À Propos de Nous</h4>
                 <ul class="footer-links">
-                    <li><a href="about.html" data-lang="en">Our Mission</a>
-                        <a href="about.html" data-lang="ar" style="display: none;">مهمتنا</a>
-                        <a href="about.html" data-lang="fr" style="display: none;">Notre Mission</a>
-                    </li>
+                   
                     <li><a href="team.html" data-lang="en">Our Team</a>
                         <a href="team.html" data-lang="ar" style="display: none;">فريقنا</a>
                         <a href="team.html" data-lang="fr" style="display: none;">Notre Équipe</a>
@@ -752,6 +790,254 @@ function changeLanguage(lang) {
 
 
 
-    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const years = ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
+    const touristsData = [9.3, 5.4, 8.3, 11.3, 13.1, 3.7, 4.9, 11.7, 14.9, 15.3, 16.8];
+    const revenueData = [6.1, 3.8, 7.6, 11.6, 13.0, 4.0, 5.8, 10.7, 13.9, 14.7, 16.0];
+
+    const translations = {
+        en: {
+            tourists: 'Tourists (millions)',
+            revenue: 'Revenue (billion $)',
+            millionsLabel: 'Millions of Tourists',
+            billionLabel: 'Billion USD',
+            year: 'Year'
+        },
+        ar: {
+            tourists: 'السياح (مليون)',
+            revenue: 'الإيرادات (مليار دولار)',
+            millionsLabel: 'ملايين السياح',
+            billionLabel: 'مليار دولار',
+            year: 'السنة'
+        },
+        fr: {
+            tourists: 'Touristes (millions)',
+            revenue: 'Revenus (milliards $)',
+            millionsLabel: 'Millions de Touristes',
+            billionLabel: 'Milliards USD',
+            year: 'Année'
+        }
+    };
+
+    let currentLang = 'en';
+    let touristsChart = null;
+    let revenueChart = null;
+
+    function getChartColors() {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        return {
+            text: isDarkMode ? '#f5f5f5' : '#333333',
+            grid: isDarkMode ? '#303030' : '#e0e0e0',
+            tourists: {
+                line: '#01a2ff',
+                fill: 'rgba(1, 162, 255, 0.2)'
+            },
+            revenue: {
+                line: '#ff8800',
+                fill: 'rgba(255, 136, 0, 0.2)'
+            }
+        };
+    }
+
+    function createTouristsChart(lang) {
+        const ctx = document.getElementById('touristsChart').getContext('2d');
+        const colors = getChartColors();
+        
+        return new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: translations[lang].tourists,
+                    data: touristsData,
+                    borderColor: colors.tourists.line,
+                    backgroundColor: colors.tourists.fill,
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            // Add these font size configurations in both createTouristsChart and createRevenueChart functions
+// Inside the options object:
+
+options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+        legend: {
+            labels: {
+                color: colors.text,
+                font: {
+                    size: 14 // Increased legend font size
+                }
+            }
+        }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            title: {
+                display: true,
+                text: translations[lang].millionsLabel, // or billionLabel for revenue chart
+                color: colors.text,
+                font: {
+                    size: 24 // Increased axis title font size
+                }
+            },
+            ticks: {
+                color: colors.text,
+                font: {
+                    size: 20 // Increased axis ticks font size
+                }
+            },
+            grid: {
+                color: colors.grid
+            }
+        },
+        x: {
+            title: {
+                display: true,
+                text: translations[lang].year,
+                color: colors.text,
+                font: {
+                    size: 24 // Increased axis title font size
+                }
+            },
+            ticks: {
+                color: colors.text,
+                font: {
+                    size: 20 // Increased axis ticks font size
+                }
+            },
+            grid: {
+                color: colors.grid
+            }
+        }
+    }
+}
+        });
+    }
+
+    function createRevenueChart(lang) {
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const colors = getChartColors();
+        
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: translations[lang].revenue,
+                    data: revenueData,
+                    backgroundColor: colors.revenue.fill,
+                    borderColor: colors.revenue.line,
+                    borderWidth: 1
+                }]
+            },
+            // Add these font size configurations in both createTouristsChart and createRevenueChart functions
+// Inside the options object:
+
+options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+        legend: {
+            labels: {
+                color: colors.text,
+                font: {
+                    size: 14 // Increased legend font size
+                }
+            }
+        }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            title: {
+                display: true,
+                text: translations[lang].billionLabel, // or billionLabel for revenue chart
+                color: colors.text,
+                font: {
+                    size: 24 // Increased axis title font size
+                }
+            },
+            ticks: {
+                color: colors.text,
+                font: {
+                    size: 20 // Increased axis ticks font size
+                }
+            },
+            grid: {
+                color: colors.grid
+            }
+        },
+        x: {
+            title: {
+                display: true,
+                text: translations[lang].year,
+                color: colors.text,
+                font: {
+                    size: 24 // Increased axis title font size
+                }
+            },
+            ticks: {
+                color: colors.text,
+                font: {
+                    size: 20 // Increased axis ticks font size
+                }
+            },
+            grid: {
+                color: colors.grid
+            }
+        }
+    }
+}
+        });
+    }
+
+    function updateCharts(lang) {
+        if (touristsChart) touristsChart.destroy();
+        if (revenueChart) revenueChart.destroy();
+        
+        currentLang = lang;
+        touristsChart = createTouristsChart(lang);
+        revenueChart = createRevenueChart(lang);
+    }
+
+    // Initialize charts
+    updateCharts('en');
+    const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+if (savedLanguage) {
+    updateCharts(savedLanguage);
+}
+    // Update charts when language changes
+    const languageButtons = document.querySelectorAll('.language-btn');
+    languageButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.id.replace('lang-', '');
+            updateCharts(lang);
+        });
+    });
+
+    // Update charts when theme changes
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+        updateCharts(currentLang);
+    });
+});
+
+</script>
 </body>
 </html>
