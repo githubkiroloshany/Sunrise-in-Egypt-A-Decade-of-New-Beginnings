@@ -165,6 +165,7 @@
         
         .sun-icon, .moon-icon {
             font-size: 16px;
+    
         }
         
         main {
@@ -447,76 +448,116 @@
             }
         }
         
-        /* Mobile header fixes */
+      /* Mobile menu button */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 200;
+}
+
+/* Mobile header fixes */
 @media (max-width: 768px) {
     .header-content {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
         align-items: center;
         padding: 0.5rem;
+        position: relative;
     }
     
     .logo {
-        margin-bottom: 0.5rem;
-        justify-content: center;
+        flex: 1;
+        margin-bottom: 0;
+        justify-content: flex-start;
+    }
+    
+    .menu-toggle {
+        display: block;
+        order: 3;
     }
     
     nav {
         width: 100%;
-        display: block !important; /* Force display */
-        margin: 0.5rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        margin: 0;
+        order: 4;
+    }
+    
+    nav.active {
+        max-height: 500px;
     }
     
     nav ul {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 0;
+    }
+    
+    nav ul a {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 0;
     }
     
     #page-selector {
         width: 100%;
-        max-width: none;
         margin: 0.5rem 0;
+        display: none;
+    }
+    
+    #page-selector.active {
+        display: block;
     }
     
     .controls {
-        width: 100%;
-        justify-content: center;
+        order: 2;
+        margin-left: auto;
+        margin-right: 10px;
         flex-direction: row;
-        margin-top: 0.5rem;
-        gap: 1rem;
-    }
-    
-    .language-selector, .theme-toggle {
-        width: auto;
+        gap: 0.5rem;
     }
     
     main {
-        padding-top: 220px; /* Adjusted padding to account for taller header */
+        padding-top: 70px; /* Adjusted for collapsed header */
     }
 }
 
 /* Extra small devices */
 @media (max-width: 480px) {
-    .controls {
-        flex-direction: column;
-        align-items: center;
+    .header-content {
+        padding: 0.25rem;
+    }
+
+    .logo h1 {
+        font-size: 1rem;
     }
     
-    .language-selector, .theme-toggle {
-        width: 100%;
-        margin-bottom: 0.5rem;
+    .logo img {
+        height: 30px;
+        width: 30px;
+    }
+    
+    .controls {
+        gap: 0.25rem;
     }
     
     .language-buttons {
-        width: 100%;
-        justify-content: center;
+        width: 150px;
     }
     
-    main {
-        padding-top: 280px; /* Further adjusted for even taller header */
+    .theme-btn {
+        width: 60px;
+        height: 30px;
     }
 }
-        
         </style></head>
 <body>
     <header>
@@ -527,59 +568,7 @@
                 <h1 data-lang="ar" style="display: none;">المليون ونصف فدان</h1>
                 <h1 data-lang="fr" style="display: none;">1,5 million de feddan</h1>
             </div>
-            <nav>
-                <ul>
-                    <a href="index.html" class="nav-link" data-lang="en">Home</a>
-                    <a href="index.html" class="nav-link" data-lang="ar" style="display: none;">الرئيسية</a>
-                    <a href="index.html" class="nav-link" data-lang="fr" style="display: none;">Accueil</a>
-                </ul>
-            </nav>
             
-    <nav>
-        <select id="page-selector" onchange="navigateToPage(this.value)">
-            <option value="" data-lang="en">Choose a Page</option>
-            <option value="" disabled data-lang="ar" style="display: none;">اختر صفحة</option>
-            <option value="" disabled data-lang="fr" style="display: none;">Choisissez une page</option>
-            
-            <option value="new-administrative-capital.html" data-lang="en">New Administrative Capital</option>
-            <option value="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</option>
-            <option value="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</option>
-        
-            <option value="suez-canal.html" data-lang="en">Suez Canal Expansion</option>
-            <option value="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</option>
-            <option value="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</option>
-        
-            <option value="transportation.html" data-lang="en">Transportation and Roads</option>
-            <option value="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</option>
-            <option value="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</option>
-        
-            <option value="energy-achievements.html" data-lang="en">Energy Achievements</option>
-            <option value="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</option>
-            <option value="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</option>
-        
-            <option value="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</option>
-            <option value="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</option>
-            <option value="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</option>
-        
-            <option value="healthcare.html" data-lang="en">Healthcare Improvements</option>
-            <option value="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</option>
-            <option value="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</option>
-        
-            <option value="tourism.html" data-lang="en">Tourism Revival</option>
-            <option value="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</option>
-            <option value="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</option>
-        
-            <option value="haya-kareema.html" data-lang="en">Haya Karima Initiative</option>
-            <option value="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</option>
-            <option value="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Karima</option>
-        
-            <option value="new-cities.html" data-lang="en">New Cities</option>
-            <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
-            <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
-        
-            
-        </select>
-        </nav>
             <div class="controls">
                 <div class="language-selector">
                     <div class="language-buttons">
@@ -595,6 +584,60 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Mobile menu toggle button will be inserted here by JavaScript -->
+            
+            <nav>
+                <ul>
+                    <a href="index.html" class="nav-link" data-lang="en">Home</a>
+                    <a href="index.html" class="nav-link" data-lang="ar" style="display: none;">الرئيسية</a>
+                    <a href="index.html" class="nav-link" data-lang="fr" style="display: none;">Accueil</a>
+                </ul>
+            </nav>
+            
+            <nav>
+                <select id="page-selector" onchange="navigateToPage(this.value)">
+                    <option value="" data-lang="en">Choose a Page</option>
+                    <option value="" disabled data-lang="ar" style="display: none;">اختر صفحة</option>
+                    <option value="" disabled data-lang="fr" style="display: none;">Choisissez une page</option>
+                    
+                    <option value="new-administrative-capital.html" data-lang="en">New Administrative Capital</option>
+                    <option value="new-administrative-capital.html" data-lang="ar" style="display: none;">العاصمة الإدارية الجديدة</option>
+                    <option value="new-administrative-capital.html" data-lang="fr" style="display: none;">Nouvelle Capitale Administrative</option>
+                
+                    <option value="suez-canal.html" data-lang="en">Suez Canal Expansion</option>
+                    <option value="suez-canal.html" data-lang="ar" style="display: none;">توسعة قناة السويس</option>
+                    <option value="suez-canal.html" data-lang="fr" style="display: none;">Expansion du Canal de Suez</option>
+                
+                    <option value="transportation.html" data-lang="en">Transportation and Roads</option>
+                    <option value="transportation.html" data-lang="ar" style="display: none;">النقل والطرق</option>
+                    <option value="transportation.html" data-lang="fr" style="display: none;">Transport et Routes</option>
+                
+                    <option value="energy-achievements.html" data-lang="en">Energy Achievements</option>
+                    <option value="energy-achievements.html" data-lang="ar" style="display: none;">إنجازات الطاقة</option>
+                    <option value="energy-achievements.html" data-lang="fr" style="display: none;">Réalisations Énergétiques</option>
+                
+                    <option value="dabaa.html" data-lang="en">Dabaa Nuclear Power Plant</option>
+                    <option value="dabaa.html" data-lang="ar" style="display: none;">محطة الضبعة النووية</option>
+                    <option value="dabaa.html" data-lang="fr" style="display: none;">Centrale Nucléaire de Dabaa</option>
+                
+                    <option value="healthcare.html" data-lang="en">Healthcare Improvements</option>
+                    <option value="healthcare.html" data-lang="ar" style="display: none;">تحسينات الرعاية الصحية</option>
+                    <option value="healthcare.html" data-lang="fr" style="display: none;">Améliorations des Soins de Santé</option>
+                
+                    <option value="tourism.html" data-lang="en">Tourism Revival</option>
+                    <option value="tourism.html" data-lang="ar" style="display: none;">إحياء السياحة</option>
+                    <option value="tourism.html" data-lang="fr" style="display: none;">Relance du Tourisme</option>
+                
+                    <option value="haya-kareema.html" data-lang="en">Haya Karima Initiative</option>
+                    <option value="haya-kareema.html" data-lang="ar" style="display: none;">مبادرة حياة كريمة</option>
+                    <option value="haya-kareema.html" data-lang="fr" style="display: none;">Initiative Haya Karima</option>
+                
+                    <option value="new-cities.html" data-lang="en">New Cities</option>
+                    <option value="new-cities.html" data-lang="ar" style="display: none;">مدن جديدة</option>
+                    <option value="new-cities.html" data-lang="fr" style="display: none;">Nouvelles Villes</option>
+                </select>
+            </nav>
         </div>
     </header>
     <main>
@@ -1005,6 +1048,93 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMobileMenu();
     // Your existing DOM loaded code here...
 });
+
+
+
+
+
+
+
+
+
+
+
+
+function setupMobileMenu() {
+    // Add a menu toggle button if it doesn't exist
+    if (!document.querySelector('.menu-toggle')) {
+        const headerContent = document.querySelector('.header-content');
+        
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '☰';
+        menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+        
+        // Insert at the right position in header content
+        headerContent.appendChild(menuToggle);
+        
+        // Toggle navigation visibility
+        menuToggle.addEventListener('click', function() {
+            const navElements = document.querySelectorAll('header nav');
+            const pageSelector = document.getElementById('page-selector');
+            
+            // Toggle menu icon
+            this.innerHTML = this.innerHTML === '☰' ? '✕' : '☰';
+            
+            // Toggle navigation and page selector
+            navElements.forEach(nav => {
+                nav.classList.toggle('active');
+            });
+            
+            if (pageSelector) {
+                pageSelector.classList.toggle('active');
+            }
+            
+            // Adjust main content padding dynamically
+            adjustMainPadding();
+        });
+    }
+    
+    // Check screen size and adjust main padding dynamically
+    function adjustMainPadding() {
+        const header = document.querySelector('header');
+        const navActive = document.querySelector('nav.active');
+        const headerHeight = header.offsetHeight;
+        const main = document.querySelector('main');
+        
+        // Set padding based on whether menu is expanded or collapsed
+        if (window.innerWidth <= 768 && navActive) {
+            // Menu is expanded on mobile
+            const totalHeight = header.getBoundingClientRect().height;
+            main.style.paddingTop = (totalHeight + 10) + 'px';
+        } else if (window.innerWidth <= 768) {
+            // Menu is collapsed on mobile
+            main.style.paddingTop = '70px';
+        } else {
+            // Desktop view
+            main.style.paddingTop = '100px';
+        }
+    }
+    
+    // Run on load and resize
+    adjustMainPadding();
+    window.addEventListener('resize', adjustMainPadding);
+    
+    // Make sure page selector is accessible in mobile view
+    const pageSelector = document.getElementById('page-selector');
+    if (pageSelector) {
+        pageSelector.addEventListener('change', function() {
+            // Close the mobile menu after selection
+            document.querySelectorAll('header nav').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            pageSelector.classList.remove('active');
+            if (document.querySelector('.menu-toggle')) {
+                document.querySelector('.menu-toggle').innerHTML = '☰';
+            }
+        });
+    }
+}
     </script>
 </body>
 </html>
