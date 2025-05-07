@@ -171,7 +171,7 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 1rem 2rem;
+            padding: 80px 0 2rem;
         }
         
         .content-container {
@@ -179,6 +179,7 @@
             flex-wrap: wrap;
             gap: 2rem;
             width: 100%;
+            padding: 0 1rem;
         }
         
         .content-box, .gallery-box {
@@ -267,21 +268,38 @@
             background-color: var(--accent-color);
         }
         
-        select#page-selector option {
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            padding: 5px;
-        }
-        
         select#page-selector {
             border: 1px solid var(--primary-color);
             border-radius: 6px;
-            padding: 5px;
+            padding: 8px 12px;
             background-color: var(--light-bg);
             color: var(--text-color);
             font-weight: bold;
             width: 100%;
             max-width: 300px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select#page-selector:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        select#page-selector:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+        
+        .dark-mode select#page-selector {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23f5f5f5' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
         }
         
         .sharp-box {
@@ -296,6 +314,10 @@
             text-align: center;
             font-size: 1.5rem;
             width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .content-box p {
@@ -416,35 +438,21 @@
             color: var(--primary-color);
         }
         
-        /* Mobile menu toggle */
+        /* Mobile menu styles */
         .menu-toggle {
             display: none;
             background: transparent;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
         
-        /* Responsive breakpoints */
-        @media (max-width: 1200px) {
-            .content-container {
-                flex-direction: column;
-            }
-            
-            .content-box, .gallery-box {
-                flex: 1 1 100%;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .map-box {
-                height: 350px;
-            }
+        .menu-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         @media (max-width: 768px) {
@@ -459,26 +467,43 @@
             nav {
                 width: 100%;
                 display: none;
+                background-color: var(--header-bg-color);
+                margin-top: 15px;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                padding: 5px;
             }
             
             nav.active {
                 display: block;
+                animation: fadeIn 0.3s ease-in-out;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
             }
             
             nav ul {
                 flex-direction: column;
                 width: 100%;
                 text-align: center;
-                padding: 1rem 0;
+                padding: 0.5rem 0;
             }
             
             nav ul li {
                 width: 100%;
+                margin: 5px 0;
             }
             
             nav a {
                 display: block;
                 padding: 0.75rem;
+                border-radius: 6px;
+            }
+            
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.2);
             }
             
             .controls {
@@ -509,7 +534,11 @@
             }
             
             main {
-                padding-top: 150px;
+                padding-top: 130px;
+            }
+            
+            .content-container {
+                padding: 0 1rem;
             }
         }
         
@@ -549,7 +578,12 @@
             }
             
             main {
-                padding-top: 180px;
+                padding-top: 160px;
+            }
+            
+            .sharp-box {
+                padding: 1rem;
+                font-size: 1.1rem;
             }
         }
         
@@ -568,12 +602,17 @@
             }
             
             main {
-                padding-top: 220px;
+                padding-top: 190px;
+            }
+            
+            .sharp-box {
+                padding: 0.75rem;
+                font-size: 1rem;
             }
         }
-        
-        
-        </style></head>
+        </style>
+    
+</head>
 <body>
     <header>
         <div class="header-content">
@@ -1014,23 +1053,42 @@ function changeLanguage(lang) {
 
 
 
-/* JavaScript for mobile menu toggle */
+
+
+
+/* JavaScript for mobile menu toggle with improved animation */
 document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.createElement('button');
-            menuToggle.classList.add('menu-toggle');
-            menuToggle.innerHTML = '☰';
+    const menuToggle = document.createElement('button');
+    menuToggle.classList.add('menu-toggle');
+    menuToggle.innerHTML = '☰';
+    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+    
+    const headerContent = document.querySelector('.header-content');
+    const nav = document.querySelector('nav');
+    
+    if (headerContent && nav) {
+        headerContent.insertBefore(menuToggle, nav);
+        
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
             
-            const headerContent = document.querySelector('.header-content');
-            const nav = document.querySelector('nav');
-            
-            if (headerContent && nav) {
-                headerContent.insertBefore(menuToggle, nav);
-                
-                menuToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                });
+            // Change the icon when menu is open
+            if (nav.classList.contains('active')) {
+                menuToggle.innerHTML = '✕';
+            } else {
+                menuToggle.innerHTML = '☰';
             }
         });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && !menuToggle.contains(event.target) && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+    }
+});
     </script>
 </body>
 </html>
