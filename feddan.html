@@ -171,7 +171,7 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 0 2rem;
+            padding: 100px 1rem 2rem;
         }
         
         .content-container {
@@ -179,7 +179,6 @@
             flex-wrap: wrap;
             gap: 2rem;
             width: 100%;
-            padding: 0 1rem;
         }
         
         .content-box, .gallery-box {
@@ -268,38 +267,21 @@
             background-color: var(--accent-color);
         }
         
+        select#page-selector option {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 5px;
+        }
+        
         select#page-selector {
             border: 1px solid var(--primary-color);
             border-radius: 6px;
-            padding: 8px 12px;
+            padding: 5px;
             background-color: var(--light-bg);
             color: var(--text-color);
             font-weight: bold;
             width: 100%;
             max-width: 300px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 8px center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        select#page-selector:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-        
-        select#page-selector:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(0,0,0,0.2);
-        }
-        
-        .dark-mode select#page-selector {
-            background-image: url("data:image/svg+xml;utf8,<svg fill='%23f5f5f5' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
         }
         
         .sharp-box {
@@ -314,10 +296,6 @@
             text-align: center;
             font-size: 1.5rem;
             width: 100%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .content-box p {
@@ -438,181 +416,108 @@
             color: var(--primary-color);
         }
         
-        /* Mobile menu styles */
+        /* Mobile menu toggle */
         .menu-toggle {
             display: none;
             background: transparent;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
         }
         
-        .menu-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-wrap: wrap;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            nav {
-                width: 100%;
-                display: none;
-                background-color: var(--header-bg-color);
-                margin-top: 15px;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                padding: 5px;
-            }
-            
-            nav.active {
-                display: block;
-                animation: fadeIn 0.3s ease-in-out;
-            }
-            
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(-10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            
-            nav ul {
-                flex-direction: column;
-                width: 100%;
-                text-align: center;
-                padding: 0.5rem 0;
-            }
-            
-            nav ul li {
-                width: 100%;
-                margin: 5px 0;
-            }
-            
-            nav a {
-                display: block;
-                padding: 0.75rem;
-                border-radius: 6px;
-            }
-            
-            nav a:hover {
-                background-color: rgba(255, 255, 255, 0.2);
-            }
-            
-            .controls {
-                width: 100%;
-                justify-content: center;
-                margin-top: 1rem;
-            }
-            
-            .sharp-box {
-                font-size: 1.2rem;
-                padding: 1.5rem;
-            }
-            
-            .content-box p {
-                font-size: 1rem;
-            }
-            
-            .maps-title {
-                font-size: 1.5rem;
-            }
-            
-            .map-box h3 {
-                font-size: 1.2rem;
-            }
-            
-            .map-box {
-                height: 300px;
-            }
-            
-            main {
-                padding-top: 130px;
-            }
-            
+        /* Responsive breakpoints */
+        @media (max-width: 1200px) {
             .content-container {
-                padding: 0 1rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .logo h1 {
-                font-size: 1rem;
-            }
-            
-            .logo img {
-                height: 30px;
-                width: 30px;
+                flex-direction: column;
             }
             
             .content-box, .gallery-box {
-                padding: 1rem;
-            }
-            
-            .map-box {
-                height: 250px;
-            }
-            
-            .footer-section {
                 flex: 1 1 100%;
-            }
-            
-            .language-buttons {
-                width: 150px;
-            }
-            
-            .theme-btn {
-                width: 60px;
-                height: 30px;
-            }
-            
-            .maps-container, .map-container {
-                padding: 1rem;
-            }
-            
-            main {
-                padding-top: 160px;
-            }
-            
-            .sharp-box {
-                padding: 1rem;
-                font-size: 1.1rem;
             }
         }
         
-        @media (max-width: 400px) {
-            .language-selector, .theme-toggle {
-                width: 100%;
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 1rem;
             }
             
-            .language-buttons {
-                width: 100%;
-            }
-            
-            .controls {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            main {
-                padding-top: 190px;
-            }
-            
-            .sharp-box {
-                padding: 0.75rem;
-                font-size: 1rem;
+            .map-box {
+                height: 350px;
             }
         }
-        </style>
+        
+        /* Mobile header fixes */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+    }
     
-</head>
+    .logo {
+        margin-bottom: 0.5rem;
+        justify-content: center;
+    }
+    
+    nav {
+        width: 100%;
+        display: block !important; /* Force display */
+        margin: 0.5rem 0;
+    }
+    
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    #page-selector {
+        width: 100%;
+        max-width: none;
+        margin: 0.5rem 0;
+    }
+    
+    .controls {
+        width: 100%;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .language-selector, .theme-toggle {
+        width: auto;
+    }
+    
+    main {
+        padding-top: 220px; /* Adjusted padding to account for taller header */
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .language-selector, .theme-toggle {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .language-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    main {
+        padding-top: 280px; /* Further adjusted for even taller header */
+    }
+}
+        
+        </style></head>
 <body>
     <header>
         <div class="header-content">
@@ -1056,38 +961,49 @@ function changeLanguage(lang) {
 
 
 
-/* JavaScript for mobile menu toggle with improved animation */
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.createElement('button');
-    menuToggle.classList.add('menu-toggle');
-    menuToggle.innerHTML = '☰';
-    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
-    
-    const headerContent = document.querySelector('.header-content');
-    const nav = document.querySelector('nav');
-    
-    if (headerContent && nav) {
-        headerContent.insertBefore(menuToggle, nav);
+
+
+
+function setupMobileMenu() {
+    // Add a menu toggle button if it doesn't exist
+    if (!document.querySelector('.menu-toggle')) {
+        const headerContent = document.querySelector('.header-content');
+        const logo = document.querySelector('.logo');
         
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '☰';
+        menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+        
+        // Insert after logo
+        logo.parentNode.insertBefore(menuToggle, logo.nextSibling);
+        
+        // Toggle navigation visibility
         menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            
-            // Change the icon when menu is open
-            if (nav.classList.contains('active')) {
-                menuToggle.innerHTML = '✕';
-            } else {
-                menuToggle.innerHTML = '☰';
-            }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!nav.contains(event.target) && !menuToggle.contains(event.target) && nav.classList.contains('active')) {
-                nav.classList.remove('active');
-                menuToggle.innerHTML = '☰';
-            }
+            const navElements = document.querySelectorAll('header nav');
+            navElements.forEach(nav => {
+                nav.classList.toggle('active');
+            });
         });
     }
+    
+    // Check screen size and adjust main padding dynamically
+    function adjustMainPadding() {
+        const header = document.querySelector('header');
+        const headerHeight = header.offsetHeight;
+        const main = document.querySelector('main');
+        main.style.paddingTop = (headerHeight + 20) + 'px';
+    }
+    
+    // Run on load and resize
+    adjustMainPadding();
+    window.addEventListener('resize', adjustMainPadding);
+}
+
+// Call this function when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    setupMobileMenu();
+    // Your existing DOM loaded code here...
 });
     </script>
 </body>
