@@ -1135,6 +1135,48 @@ function setupMobileMenu() {
         });
     }
 }
+
+
+
+
+
+
+
+
+
+// Replace the existing adjustMainPadding function with this improved version
+function adjustMainPadding() {
+    const header = document.querySelector('header');
+    const sharpBox = document.querySelector('.sharp-box');
+    
+    // Ensure the sharp box is properly positioned below the header
+    if (sharpBox) {
+        // Get the current height of the header
+        const headerHeight = header.offsetHeight;
+        
+        // Set the margin-top of the sharp box to match the header height
+        sharpBox.style.marginTop = headerHeight + 'px';
+        
+        // Remove padding-top from main as we're now using margin on sharp-box
+        const main = document.querySelector('main');
+        main.style.paddingTop = '0';
+    }
+}
+
+// Call this function on load and resize
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial adjustment
+    adjustMainPadding();
+    
+    // Adjust when window is resized
+    window.addEventListener('resize', adjustMainPadding);
+    
+    // Adjust when mobile menu is toggled (as this changes header height)
+    document.querySelector('.menu-toggle')?.addEventListener('click', function() {
+        // Small delay to allow the DOM to update after toggle
+        setTimeout(adjustMainPadding, 10);
+    });
+});
     </script>
 </body>
 </html>
