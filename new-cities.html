@@ -14,9 +14,9 @@
             --bg-color: rgba(255, 255, 255);
             --accent-color: rgba(199, 62, 58);
             --light-bg: rgba(245, 245, 245);
-            --header-bg-color: rgba(1, 162, 255, 0.4); /* Default header background color */
+            --header-bg-color: rgba(1, 162, 255, 0.4);
         }
-
+        
         .dark-mode {
             --primary-color: rgba(255, 136, 0);
             --secondary-color: rgba(82, 1, 189, 0.4);
@@ -24,25 +24,28 @@
             --bg-color: rgba(18, 18, 18);
             --accent-color: rgba(231, 76, 60);
             --light-bg: rgba(30, 30, 30);
-            --header-bg-color: rgba(82, 1, 189, 0.4); /* Dark mode header background color */
+            --header-bg-color: rgba(82, 1, 189, 0.4);
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
+        
         header {
-            background-color: var(--header-bg-color); /* Use the variable for the header background */
+            background-color: var(--header-bg-color);
             backdrop-filter: blur(10px);
             color: white;
             padding: 1rem;
@@ -51,41 +54,49 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    
-        }     
-
+        }
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
+        
         .logo img {
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
-
+        
         .logo h1 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
         }
-
+        
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
-            gap: 13rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-
+        
         nav a {
             color: white;
             text-decoration: none;
@@ -93,30 +104,32 @@
             padding: 0.5rem;
             transition: all 0.3s;
             border-radius: 12px;
+            white-space: nowrap;
         }
-
+        
         nav a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         .controls {
             display: flex;
             gap: 1rem;
             align-items: center;
+            flex-wrap: wrap;
         }
-
+        
         .language-selector {
             display: inline-block;
             border-radius: 6px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-
+        
         .language-buttons {
             display: flex;
             width: 180px;
         }
-
+        
         .language-btn {
             flex: 1;
             padding: 8px 0;
@@ -127,16 +140,16 @@
             background-color: var(--light-bg);
             color: var(--text-color);
         }
-
+        
         .language-btn.active {
             background-color: var(--text-color);
             color: var(--bg-color);
         }
-
+        
         .theme-toggle {
             display: inline-block;
         }
-
+        
         .theme-btn {
             width: 70px;
             height: 34px;
@@ -149,36 +162,36 @@
             align-items: center;
             padding: 0 8px;
         }
-
+        
         .sun-icon, .moon-icon {
             font-size: 16px;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 1rem 2rem;
+    
         }
         
-
-
+        main {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 1rem 2rem;
+        }
+        
         .content-container {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             gap: 2rem;
+            width: 100%;
         }
-
+        
         .content-box, .gallery-box {
             background-color: var(--light-bg);
             border: 1px solid var(--primary-color);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            flex: 1 1 45%;
-            min-width: 300px;
-
+            flex: 1 1 300px;
+            min-width: 0;
         }
-
+        
         .gallery {
             display: flex;
             flex-direction: column;
@@ -186,22 +199,23 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
-
+        
         .gallery-slider {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            width: 100%;
         }
-
+        
         .gallery img {
             width: 100%;
             height: auto;
             border-radius: 8px;
             object-fit: cover;
             flex-shrink: 0;
-            min-width: 100%;
         }
-
+        
         .gallery-btn {
             position: absolute;
             top: 50%;
@@ -221,26 +235,26 @@
             transition: all 0.3s ease;
             z-index: 10;
         }
-
+        
         .gallery-btn:hover {
             background-color: var(--accent-color);
         }
-
+        
         .gallery-btn.left {
             left: 10px;
         }
-
+        
         .gallery-btn.right {
             right: 10px;
         }
-
+        
         .gallery-indicators {
             margin-top: 1rem;
             display: flex;
             gap: 0.5rem;
             justify-content: center;
         }
-
+        
         .gallery-indicator {
             width: 10px;
             height: 10px;
@@ -249,18 +263,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
+        
         .gallery-indicator.active {
             background-color: var(--accent-color);
         }
-        
         
         select#page-selector option {
             background-color: var(--light-bg);
             color: var(--text-color);
             padding: 5px;
         }
-
+        
         select#page-selector {
             border: 1px solid var(--primary-color);
             border-radius: 6px;
@@ -268,58 +281,11 @@
             background-color: var(--light-bg);
             color: var(--text-color);
             font-weight: bold;
+            width: 100%;
+            max-width: 300px;
         }
         
-        footer {
-            background-color: var(--header-bg-color);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            margin-top: 3rem;
-            width: 100%;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-section h4 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-        .content-box p {
-                font-size: 1.2rem;
-                line-height: 1.8;
-            }
-
-            .sharp-box {
+        .sharp-box {
             background-color: var(--primary-color);
             color: white;
             padding: 2rem;
@@ -330,100 +296,420 @@
             border-bottom-right-radius: 12px;
             text-align: center;
             font-size: 1.5rem;
-            z-index: 1;
-            left: 5;
-            right: 5;
-            width: 100%
+            width: 100%;
+        }
+        
+        .content-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+       
+        footer {
+            background-color: var(--header-bg-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            width: 100%;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive breakpoints */
+        @media (max-width: 1200px) {
+            .content-container {
+                flex-direction: column;
             }
+            
+            .content-box, .gallery-box {
+                flex: 1 1 100%;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            nav ul {
+                gap: 1rem;
+            }
+            
+            
+        }
+        
+      /* Mobile menu button */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 200;
+}
 
-            .header-content {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-            .map-container {
+/* Mobile header fixes */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        position: relative;
+    }
+    
+    .logo {
+        flex: 1;
+        margin-bottom: 0;
+        justify-content: flex-start;
+    }
+    
+    .menu-toggle {
+        display: block;
+        order: 3;
+    }
+    
+    nav {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        margin: 0;
+        order: 4;
+    }
+    
+    nav.active {
+        max-height: 500px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 0;
+    }
+    
+    nav ul a {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 0;
+    }
+    
+    #page-selector {
+        width: 100%;
+        margin: 0.5rem 0;
+        display: none;
+    }
+    
+    #page-selector.active {
+        display: block;
+    }
+    
+    .controls {
+        order: 2;
+        margin-left: auto;
+        margin-right: 10px;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    main {
+        padding-top: 70px; /* Adjusted for collapsed header */
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .header-content {
+        padding: 0.25rem;
+    }
+
+    .logo h1 {
+        font-size: 1rem;
+    }
+    
+    .logo img {
+        height: 30px;
+        width: 30px;
+    }
+    
+    .controls {
+        gap: 0.25rem;
+    }
+    
+    .language-buttons {
+        width: 150px;
+    }
+    
+    .theme-btn {
+        width: 60px;
+        height: 30px;
+    }
+}
+
+
+
+
+
+
+
+.maps-container {
     width: 100%;
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-.map-item {
-    background-color: var(--light-bg);
-    border: 1px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.map-item h3 {
+.maps-title {
     text-align: center;
-    margin-bottom: 1.5rem;
     color: var(--text-color);
-    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: bold;
 }
 
-.map-frame {
+.map-container {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: var(--light-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 500px;
-    border-radius: 8px;
-    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.map-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.map-title {
+    text-align: center;
     margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
 }
 
-.map-frame iframe {
+.map-box {
     width: 100%;
-    height: 100%;
-    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--light-bg);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.map-info {
+.map-box h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    padding: 0 0.5rem;
+    
+}
+
+.map-box img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.map-box img:hover {
+    transform: scale(1.02);
+}
+
+.map-description {
+    margin-top: 1rem;
+    padding: 1.25rem;
     background-color: var(--bg-color);
     border-radius: 8px;
-    padding: 1.5rem;
     color: var(--text-color);
-    font-size: 1.1rem;
-    line-height: 1.6;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.map-info p {
-    margin-bottom: 1rem;
+.map-description p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-    .map-frame {
-        height: 400px;
+@media (min-width: 768px) {
+    .maps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
     }
-    
-    .map-item {
+}
+
+@media (max-width: 767px) {
+    .map-container {
         padding: 1rem;
+        margin: 1.5rem auto;
     }
     
-    .map-item h3 {
-        font-size: 1.5rem;
-    }
-    
-    .map-info {
+    .map-description {
         padding: 1rem;
-        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .map-frame {
-        height: 300px;
+    .map-container {
+        padding: 0.75rem;
+        margin: 1rem auto;
     }
     
-    .map-container {
-        padding: 0 0.5rem;
+    .map-box {
+        margin-bottom: 1rem;
+    }
+    
+    .map-description {
+        padding: 0.75rem;
     }
 }
-    </style>
+
+/* Add a caption to maps */
+.map-caption {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.5rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Add map info icons */
+.map-info-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.map-info-tooltip {
+    position: absolute;
+    background-color: var(--bg-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    max-width: 250px;
+    z-index: 100;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    font-size: 0.9rem;
+    display: none;
+}
+
+.map-info-icon:hover + .map-info-tooltip {
+    display: block;
+}
+
+/* Map grid layout improvements */
+@media (min-width: 992px) {
+    .maps-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .maps-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Map loading animation */
+.map-box.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Map container fade-in animation */
+.map-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.map-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add a subtle border to map images */
+.map-box img {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+        </style>
 </head>
 <body>
     <header>
@@ -548,87 +834,91 @@
         </div>
 
     
-
-        <div class="map-container">
-            <!-- New Alamein City Map -->
-            <div class="map-item">
-                <h3 data-lang="en">New Alamein City</h3>
+        <div class="maps-container">
+            <h2 class="maps-title" data-lang="en">Project Locations with Satellite Imagery</h2>
+            <h2 class="maps-title" data-lang="ar" style="display: none;">مواقع المشروع بالصور الفضائية</h2>
+            <h2 class="maps-title" data-lang="fr" style="display: none;">Emplacements du Projet avec Imagerie Satellite</h2>
+        
+            <div class="maps-grid">
+                <div class="map-container">
+                    <div class="map-box">
+                        <h3 data-lang="en">New Alamein City</h3>
                 <h3 data-lang="ar" style="display: none;">مدينة العلمين الجديدة</h3>
                 <h3 data-lang="fr" style="display: none;">Nouvelle Ville d'Alamein</h3>
-                
-                <div class="map-frame">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54900.37906781312!2d28.91555975!3d30.8947236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14597f864cdc2357%3A0x8eed51bf9b536ee2!2sNew%20Alamein%20City!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
-                            allowfullscreen="" loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                        <img src="map3.png" alt="Toshka Agricultural Project Satellite Image">
+                    </div>
+                    <div class="map-description">
+                        
+                        <p data-lang="en">
+                            New Alamein City is a new fourth-generation city located on Egypt's Mediterranean coast. The city spans 48,000 feddans and is designed to accommodate over 3 million residents. It features modern infrastructure, tourist areas, educational facilities, and sustainable development projects.
+                        </p>
+                        <p data-lang="ar" style="display: none;">
+                            مدينة العلمين الجديدة هي مدينة من الجيل الرابع تقع على ساحل البحر المتوسط في مصر. تمتد المدينة على مساحة 48,000 فدان وتم تصميمها لاستيعاب أكثر من 3 ملايين نسمة. تتميز بالبنية التحتية الحديثة والمناطق السياحية والمرافق التعليمية ومشاريع التنمية المستدامة.
+                        </p>
+                        <p data-lang="fr" style="display: none;">
+                            La Nouvelle Ville d'Alamein est une ville de quatrième génération située sur la côte méditerranéenne de l'Égypte. La ville s'étend sur 48 000 feddans et est conçue pour accueillir plus de 3 millions d'habitants. Elle dispose d'infrastructures modernes, de zones touristiques, d'établissements d'enseignement et de projets de développement durable.
+                        </p>
+                    </div>
                 </div>
-                
-                <div class="map-info">
-                    <p data-lang="en">
-                        New Alamein City is a new fourth-generation city located on Egypt's Mediterranean coast. The city spans 48,000 feddans and is designed to accommodate over 3 million residents. It features modern infrastructure, tourist areas, educational facilities, and sustainable development projects.
-                    </p>
-                    <p data-lang="ar" style="display: none;">
-                        مدينة العلمين الجديدة هي مدينة من الجيل الرابع تقع على ساحل البحر المتوسط في مصر. تمتد المدينة على مساحة 48,000 فدان وتم تصميمها لاستيعاب أكثر من 3 ملايين نسمة. تتميز بالبنية التحتية الحديثة والمناطق السياحية والمرافق التعليمية ومشاريع التنمية المستدامة.
-                    </p>
-                    <p data-lang="fr" style="display: none;">
-                        La Nouvelle Ville d'Alamein est une ville de quatrième génération située sur la côte méditerranéenne de l'Égypte. La ville s'étend sur 48 000 feddans et est conçue pour accueillir plus de 3 millions d'habitants. Elle dispose d'infrastructures modernes, de zones touristiques, d'établissements d'enseignement et de projets de développement durable.
-                    </p>
-                </div>
-            </div>
         
-            <!-- Galala City Map -->
-            <div class="map-item">
+                <div class="map-container">
+                    <div class="map-box">
+                       
                 <h3 data-lang="en">Galala City</h3>
                 <h3 data-lang="ar" style="display: none;">مدينة الجلالة</h3>
                 <h3 data-lang="fr" style="display: none;">Ville de Galala</h3>
-                
-                <div class="map-frame">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55476.31774419089!2d32.65138075!3d29.6741665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145838be0b7c76d9%3A0x924bc83fab359f15!2sGalala%20City!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
-                            allowfullscreen="" loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                        <img src="map4.png" alt="Minya Agricultural Development Satellite Image">
+                    </div>
+                    <div class="map-description">
+                        <p data-lang="en">
+                            Galala City is a new urban development built on the Galala plateau overlooking the Red Sea. The city features a state-of-the-art university, tourist resorts, industrial zones, and residential areas. This comprehensive development project represents a new model for sustainable urban communities in Egypt.
+                        </p>
+                        <p data-lang="ar" style="display: none;">
+                            مدينة الجلالة هي تنمية حضرية جديدة مبنية على هضبة الجلالة المطلة على البحر الأحمر. تضم المدينة جامعة حديثة ومنتجعات سياحية ومناطق صناعية ومناطق سكنية. يمثل هذا المشروع التنموي الشامل نموذجاً جديداً للمجتمعات الحضرية المستدامة في مصر.
+                        </p>
+                        <p data-lang="fr" style="display: none;">
+                            La ville de Galala est un nouveau développement urbain construit sur le plateau de Galala surplombant la mer Rouge. La ville comprend une université moderne, des complexes touristiques, des zones industrielles et des zones résidentielles. Ce projet de développement complet représente un nouveau modèle de communautés urbaines durables en Égypte.
+                        
+                        </div>
                 </div>
-                
-                <div class="map-info">
-                    <p data-lang="en">
-                        Galala City is a new urban development built on the Galala plateau overlooking the Red Sea. The city features a state-of-the-art university, tourist resorts, industrial zones, and residential areas. This comprehensive development project represents a new model for sustainable urban communities in Egypt.
-                    </p>
-                    <p data-lang="ar" style="display: none;">
-                        مدينة الجلالة هي تنمية حضرية جديدة مبنية على هضبة الجلالة المطلة على البحر الأحمر. تضم المدينة جامعة حديثة ومنتجعات سياحية ومناطق صناعية ومناطق سكنية. يمثل هذا المشروع التنموي الشامل نموذجاً جديداً للمجتمعات الحضرية المستدامة في مصر.
-                    </p>
-                    <p data-lang="fr" style="display: none;">
-                        La ville de Galala est un nouveau développement urbain construit sur le plateau de Galala surplombant la mer Rouge. La ville comprend une université moderne, des complexes touristiques, des zones industrielles et des zones résidentielles. Ce projet de développement complet représente un nouveau modèle de communautés urbaines durables en Égypte.
-                    </p>
-                </div>
-            </div>
-        
-            <!-- East Port Said Map -->
-            <div class="map-item">
-                <h3 data-lang="en">East Port Said</h3>
-                <h3 data-lang="ar" style="display: none;">شرق بورسعيد</h3>
-                <h3 data-lang="fr" style="display: none;">Port-Saïd Est</h3>
-                
-                <div class="map-frame">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54900.37906781312!2d32.31555975!3d31.2747236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f99c3e939e6b99%3A0x4caa77589d0ce44e!2sEast%20Port%20Said!5e0!3m2!1sen!2seg!4v1683397927185!5m2!1sen!2seg"
-                            allowfullscreen="" loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-                
-                <div class="map-info">
-                    <p data-lang="en">
-                        East Port Said is a major development project and strategic hub at the northern entrance of the Suez Canal. It features one of the world's largest container terminals, an industrial zone, logistics center, and residential communities. The project plays a vital role in Egypt's maritime and economic development.
-                    </p>
-                    <p data-lang="ar" style="display: none;">
-                        شرق بورسعيد هو مشروع تنموي رئيسي ومركز استراتيجي عند المدخل الشمالي لقناة السويس. يضم واحداً من أكبر محطات الحاويات في العالم ومنطقة صناعية ومركزاً للخدمات اللوجستية ومجتمعات سكنية. يلعب المشروع دوراً حيوياً في التنمية البحرية والاقتصادية لمصر.
-                    </p>
-                    <p data-lang="fr" style="display: none;">
-                        Port-Saïd Est est un projet de développement majeur et un hub stratégique à l'entrée nord du canal de Suez. Il comprend l'un des plus grands terminaux à conteneurs au monde, une zone industrielle, un centre logistique et des communautés résidentielles. Le projet joue un rôle vital dans le développement maritime et économique de l'Égypte.
-                    </p>
+                <div class="map-container">
+                    <div class="map-box">
+                       
+                        <h3 data-lang="en">East Port Said</h3>
+                        <h3 data-lang="ar" style="display: none;">شرق بورسعيد</h3>
+                        <h3 data-lang="fr" style="display: none;">Port-Saïd Est</h3>
+                        <img src="map5.png" alt="Minya Agricultural Development Satellite Image">
+                    </div>
+                    <div class="map-description">
+                        <p data-lang="en">
+                            East Port Said is a major development project and strategic hub at the northern entrance of the Suez Canal. It features one of the world's largest container terminals, an industrial zone, logistics center, and residential communities. The project plays a vital role in Egypt's maritime and economic development.
+                        </p>
+                        <p data-lang="ar" style="display: none;">
+                            شرق بورسعيد هو مشروع تنموي رئيسي ومركز استراتيجي عند المدخل الشمالي لقناة السويس. يضم واحداً من أكبر محطات الحاويات في العالم ومنطقة صناعية ومركزاً للخدمات اللوجستية ومجتمعات سكنية. يلعب المشروع دوراً حيوياً في التنمية البحرية والاقتصادية لمصر.
+                        </p>
+                        <p data-lang="fr" style="display: none;">
+                            Port-Saïd Est est un projet de développement majeur et un hub stratégique à l'entrée nord du canal de Suez. Il comprend l'un des plus grands terminaux à conteneurs au monde, une zone industrielle, un centre logistique et des communautés résidentielles. Le projet joue un rôle vital dans le développement maritime et économique de l'Égypte.
+                        </p>
+                        </div>
                 </div>
             </div>
-        </div>
+        </div> 
         
+        
+                
+    
+                    
+               
+        
+           
+                
+               
+                   
+                
+                
+               
+                    
+            
         
     </main>
 
@@ -738,171 +1028,454 @@
             </footer>
         
     
-    <script>
-    const images = ["c1.png", "c2.png", "c3.png", "c4.png"];
-        let currentImageIndex = 0;
-        let autoScrollInterval;
-
-        function navigateGallery(direction) {
-        const slider = document.getElementById("gallery-slider");
-        const totalImages = images.length;
-    
-
-        
-        // Add duplicate images for seamless looping
-        if (direction === 1 && currentImageIndex === totalImages - 1) {
-            // Moving forward from the last image
-            slider.appendChild(slider.firstElementChild.cloneNode(true));
-            slider.style.transition = "transform 0.5s ease-in-out";
-            slider.style.transform = `translateX(-${(currentImageIndex + 1) * 100}%)`;
-    
-            setTimeout(() => {
-                slider.style.transition = "none";
-                slider.style.transform = `translateX(0)`;
-                slider.removeChild(slider.lastElementChild);
-                currentImageIndex = 0;
-                updateIndicators();
-            }, 500);
-            return;
-        }
-    
-        if (direction === -1 && currentImageIndex === 0) {
-            // Moving backward from the first image
-            slider.insertBefore(slider.lastElementChild.cloneNode(true), slider.firstElementChild);
-            slider.style.transition = "none";
-            slider.style.transform = `translateX(-100%)`;
-    
-            setTimeout(() => {
-                slider.style.transition = "transform 0.5s ease-in-out";
-                slider.style.transform = `translateX(0)`;
-            }, 0);
-    
-            setTimeout(() => {
-                slider.style.transition = "none";
-                slider.style.transform = `translateX(-${(totalImages - 1) * 100}%)`;
-                slider.removeChild(slider.firstElementChild);
-                currentImageIndex = totalImages - 1;
-                updateIndicators();
-            }, 500);
-            return;
-        }
-    
-        // Normal navigation
-        currentImageIndex = (currentImageIndex + direction + totalImages) % totalImages;
-        slider.style.transition = "transform 0.5s ease-in-out";
-        slider.style.transform = `translateX(-${currentImageIndex * 100}%)`;
-        updateIndicators();
-    }
-        function updateIndicators() {
-            const indicators = document.getElementById("gallery-indicators");
-            indicators.innerHTML = "";
-            images.forEach((_, index) => {
-                const dot = document.createElement("div");
-                dot.className = "gallery-indicator" + (index === currentImageIndex ? " active" : "");
-                dot.onclick = () => setGalleryImage(index);
-                indicators.appendChild(dot);
+            <script>
+                const images = ["f1.png", "f2.png", "f3.png", "f4.png"];
+                    let currentImageIndex = 0;
+                    let autoScrollInterval;
+            
+                    function navigateGallery(direction) {
+                    const slider = document.getElementById("gallery-slider");
+                    const totalImages = images.length;
+                
+            
+                    
+                    // Add duplicate images for seamless looping
+                    if (direction === 1 && currentImageIndex === totalImages - 1) {
+                        // Moving forward from the last image
+                        slider.appendChild(slider.firstElementChild.cloneNode(true));
+                        slider.style.transition = "transform 0.5s ease-in-out";
+                        slider.style.transform = `translateX(-${(currentImageIndex + 1) * 100}%)`;
+                
+                        setTimeout(() => {
+                            slider.style.transition = "none";
+                            slider.style.transform = `translateX(0)`;
+                            slider.removeChild(slider.lastElementChild);
+                            currentImageIndex = 0;
+                            updateIndicators();
+                        }, 500);
+                        return;
+                    }
+                
+                    if (direction === -1 && currentImageIndex === 0) {
+                        // Moving backward from the first image
+                        slider.insertBefore(slider.lastElementChild.cloneNode(true), slider.firstElementChild);
+                        slider.style.transition = "none";
+                        slider.style.transform = `translateX(-100%)`;
+                
+                        setTimeout(() => {
+                            slider.style.transition = "transform 0.5s ease-in-out";
+                            slider.style.transform = `translateX(0)`;
+                        }, 0);
+                
+                        setTimeout(() => {
+                            slider.style.transition = "none";
+                            slider.style.transform = `translateX(-${(totalImages - 1) * 100}%)`;
+                            slider.removeChild(slider.firstElementChild);
+                            currentImageIndex = totalImages - 1;
+                            updateIndicators();
+                        }, 500);
+                        return;
+                    }
+                
+                    // Normal navigation
+                    currentImageIndex = (currentImageIndex + direction + totalImages) % totalImages;
+                    slider.style.transition = "transform 0.5s ease-in-out";
+                    slider.style.transform = `translateX(-${currentImageIndex * 100}%)`;
+                    updateIndicators();
+                }
+                    function updateIndicators() {
+                        const indicators = document.getElementById("gallery-indicators");
+                        indicators.innerHTML = "";
+                        images.forEach((_, index) => {
+                            const dot = document.createElement("div");
+                            dot.className = "gallery-indicator" + (index === currentImageIndex ? " active" : "");
+                            dot.onclick = () => setGalleryImage(index);
+                            indicators.appendChild(dot);
+                        });
+                    }
+            
+                    function setGalleryImage(index) {
+                        currentImageIndex = index;
+                        document.getElementById("gallery-slider").style.transform = `translateX(-${index * 100}%)`;
+                        updateIndicators();
+                    }
+            
+                    function startAutoScroll() {
+                        stopAutoScroll(); // Clear any existing interval
+                        autoScrollInterval = setInterval(() => navigateGallery(1), 2000); // Auto-scroll every 5 seconds
+                    }
+            
+                    function stopAutoScroll() {
+                        clearInterval(autoScrollInterval);
+                    }
+            
+                    function changeLanguage(lang) {
+                        const elements = document.querySelectorAll("[data-lang]");
+                        elements.forEach((el) => {
+                            el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
+                        });
+            
+                        // Update language button styles
+                        document.querySelectorAll(".language-btn").forEach((btn) => {
+                            btn.classList.remove("active");
+                        });
+                        document.getElementById(`lang-${lang}`).classList.add("active");
+                    }
+            
+                    
+            
+                    // Initialize gallery and language on load
+                    updateIndicators();
+                    startAutoScroll(); // Start automatic scrolling
+                    
+            
+                    // Pause auto-scroll on hover
+                    document.querySelector(".gallery-box").addEventListener("mouseover", stopAutoScroll);
+                    document.querySelector(".gallery-box").addEventListener("mouseout", startAutoScroll);
+                
+                    function navigateToPage(page) {
+                        if (page) {
+                            window.location.href = page;
+                        }
+                    }
+            
+            
+            
+            
+            
+                    // Language and Theme Management
+            document.addEventListener('DOMContentLoaded', function() {
+                // Apply saved preferences (language and theme)
+                const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+                const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+                
+                changeLanguage(savedLanguage);
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+                
+                
+                // Language buttons
+                document.getElementById('lang-' + savedLanguage).classList.add('active');
+                
+                // Theme toggle button
+                const themeToggleBtn = document.getElementById('theme-toggle');
+                        themeToggleBtn.addEventListener('click', function() {
+                            document.body.classList.toggle('dark-mode');
+                            const isDarkMode = document.body.classList.contains('dark-mode');
+                            localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
+                        });
             });
-        }
-
-        function setGalleryImage(index) {
-            currentImageIndex = index;
-            document.getElementById("gallery-slider").style.transform = `translateX(-${index * 100}%)`;
-            updateIndicators();
-        }
-
-        function startAutoScroll() {
-            stopAutoScroll(); // Clear any existing interval
-            autoScrollInterval = setInterval(() => navigateGallery(1), 2000); // Auto-scroll every 5 seconds
-        }
-
-        function stopAutoScroll() {
-            clearInterval(autoScrollInterval);
-        }
-
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll("[data-lang]");
-            elements.forEach((el) => {
-                el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
-            });
-
-            // Update language button styles
-            document.querySelectorAll(".language-btn").forEach((btn) => {
-                btn.classList.remove("active");
-            });
-            document.getElementById(`lang-${lang}`).classList.add("active");
-        }
-
-        
-
-        // Initialize gallery and language on load
-        updateIndicators();
-        startAutoScroll(); // Start automatic scrolling
-        
-
-        // Pause auto-scroll on hover
-        document.querySelector(".gallery-box").addEventListener("mouseover", stopAutoScroll);
-        document.querySelector(".gallery-box").addEventListener("mouseout", startAutoScroll);
-    
-        function navigateToPage(page) {
-            if (page) {
-                window.location.href = page;
+            
+            function changeLanguage(lang) {
+                // Hide all language elements
+                const elements = document.querySelectorAll('[data-lang]');
+                elements.forEach(el => {
+                    if (el.getAttribute('data-lang') === lang) {
+                        el.style.display = '';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+                
+                // Update active language button
+                document.querySelectorAll('.language-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.getElementById('lang-' + lang).classList.add('active');
+                
+                // Store language preference
+                localStorage.setItem('preferredLanguage', lang);
+                
+                // Update document direction for Arabic
+                document.body.dir = lang === 'ar' ? 'ltr' : 'ltr';
             }
-        }
-
-
-
-
-
-        // Language and Theme Management
-document.addEventListener('DOMContentLoaded', function() {
-    // Apply saved preferences (language and theme)
-    const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
-    const savedTheme = localStorage.getItem('preferredTheme') || 'light';
-    
-    changeLanguage(savedLanguage);
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-    
-    
-    // Language buttons
-    document.getElementById('lang-' + savedLanguage).classList.add('active');
-    
-    // Theme toggle button
-    const themeToggleBtn = document.getElementById('theme-toggle');
-            themeToggleBtn.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                const isDarkMode = document.body.classList.contains('dark-mode');
-                localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            function setupMobileMenu() {
+                // Add a menu toggle button if it doesn't exist
+                if (!document.querySelector('.menu-toggle')) {
+                    const headerContent = document.querySelector('.header-content');
+                    const logo = document.querySelector('.logo');
+                    
+                    const menuToggle = document.createElement('button');
+                    menuToggle.className = 'menu-toggle';
+                    menuToggle.innerHTML = '☰';
+                    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+                    
+                    // Insert after logo
+                    logo.parentNode.insertBefore(menuToggle, logo.nextSibling);
+                    
+                    // Toggle navigation visibility
+                    menuToggle.addEventListener('click', function() {
+                        const navElements = document.querySelectorAll('header nav');
+                        navElements.forEach(nav => {
+                            nav.classList.toggle('active');
+                        });
+                    });
+                }
+                
+                // Check screen size and adjust main padding dynamically
+                function adjustMainPadding() {
+                    const header = document.querySelector('header');
+                    const headerHeight = header.offsetHeight;
+                    const main = document.querySelector('main');
+                    main.style.paddingTop = (headerHeight + 20) + 'px';
+                }
+                
+                // Run on load and resize
+                adjustMainPadding();
+                window.addEventListener('resize', adjustMainPadding);
+            }
+            
+            // Call this function when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                setupMobileMenu();
+                // Your existing DOM loaded code here...
             });
-});
-
-function changeLanguage(lang) {
-    // Hide all language elements
-    const elements = document.querySelectorAll('[data-lang]');
-    elements.forEach(el => {
-        if (el.getAttribute('data-lang') === lang) {
-            el.style.display = '';
-        } else {
-            el.style.display = 'none';
-        }
-    });
-    
-    // Update active language button
-    document.querySelectorAll('.language-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.getElementById('lang-' + lang).classList.add('active');
-    
-    // Store language preference
-    localStorage.setItem('preferredLanguage', lang);
-    
-    // Update document direction for Arabic
-    document.body.dir = lang === 'ar' ? 'ltr' : 'ltr';
-}
-
-
-
-    </script>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            function setupMobileMenu() {
+                // Add a menu toggle button if it doesn't exist
+                if (!document.querySelector('.menu-toggle')) {
+                    const headerContent = document.querySelector('.header-content');
+                    
+                    const menuToggle = document.createElement('button');
+                    menuToggle.className = 'menu-toggle';
+                    menuToggle.innerHTML = '☰';
+                    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+                    
+                    // Insert at the right position in header content
+                    headerContent.appendChild(menuToggle);
+                    
+                    // Toggle navigation visibility
+                    menuToggle.addEventListener('click', function() {
+                        const navElements = document.querySelectorAll('header nav');
+                        const pageSelector = document.getElementById('page-selector');
+                        
+                        // Toggle menu icon
+                        this.innerHTML = this.innerHTML === '☰' ? '✕' : '☰';
+                        
+                        // Toggle navigation and page selector
+                        navElements.forEach(nav => {
+                            nav.classList.toggle('active');
+                        });
+                        
+                        if (pageSelector) {
+                            pageSelector.classList.toggle('active');
+                        }
+                        
+                        // Adjust main content padding dynamically
+                        adjustMainPadding();
+                    });
+                }
+                
+                // Check screen size and adjust main padding dynamically
+                function adjustMainPadding() {
+                    const header = document.querySelector('header');
+                    const navActive = document.querySelector('nav.active');
+                    const headerHeight = header.offsetHeight;
+                    const main = document.querySelector('main');
+                    
+                    // Set padding based on whether menu is expanded or collapsed
+                    if (window.innerWidth <= 768 && navActive) {
+                        // Menu is expanded on mobile
+                        const totalHeight = header.getBoundingClientRect().height;
+                        main.style.paddingTop = (totalHeight + 10) + 'px';
+                    } else if (window.innerWidth <= 768) {
+                        // Menu is collapsed on mobile
+                        main.style.paddingTop = '70px';
+                    } else {
+                        // Desktop view
+                        main.style.paddingTop = '100px';
+                    }
+                }
+                
+                // Run on load and resize
+                adjustMainPadding();
+                window.addEventListener('resize', adjustMainPadding);
+                
+                // Make sure page selector is accessible in mobile view
+                const pageSelector = document.getElementById('page-selector');
+                if (pageSelector) {
+                    pageSelector.addEventListener('change', function() {
+                        // Close the mobile menu after selection
+                        document.querySelectorAll('header nav').forEach(nav => {
+                            nav.classList.remove('active');
+                        });
+                        pageSelector.classList.remove('active');
+                        if (document.querySelector('.menu-toggle')) {
+                            document.querySelector('.menu-toggle').innerHTML = '☰';
+                        }
+                    });
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            // Replace the existing adjustMainPadding function with this improved version
+            function adjustMainPadding() {
+                const header = document.querySelector('header');
+                const sharpBox = document.querySelector('.sharp-box');
+                
+                // Ensure the sharp box is properly positioned below the header
+                if (sharpBox) {
+                    // Get the current height of the header
+                    const headerHeight = header.offsetHeight;
+                    
+                    // Set the margin-top of the sharp box to match the header height
+                    sharpBox.style.marginTop = headerHeight + 'px';
+                    
+                    // Remove padding-top from main as we're now using margin on sharp-box
+                    const main = document.querySelector('main');
+                    main.style.paddingTop = '0';
+                }
+            }
+            
+            // Call this function on load and resize
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initial adjustment
+                adjustMainPadding();
+                
+                // Adjust when window is resized
+                window.addEventListener('resize', adjustMainPadding);
+                
+                // Adjust when mobile menu is toggled (as this changes header height)
+                document.querySelector('.menu-toggle')?.addEventListener('click', function() {
+                    // Small delay to allow the DOM to update after toggle
+                    setTimeout(adjustMainPadding, 10);
+                });
+            });
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            function optimizeMapImages() {
+                const mapImages = document.querySelectorAll('.map-box img');
+                
+                mapImages.forEach(img => {
+                    // Handle image error
+                    img.onerror = function() {
+                        this.src = 'placeholder.png'; // Fallback image
+                        this.alt = 'Map image unavailable';
+                    };
+                    
+                    // Add loading attribute for better performance
+                    img.loading = 'lazy';
+                });
+            }
+            
+            
+            function handleResponsiveMapLayout() {
+                const mapContainers = document.querySelectorAll('.map-container');
+                const windowWidth = window.innerWidth;
+                
+                mapContainers.forEach(container => {
+                    // Reset any inline styles first
+                    container.style.height = '';
+                    
+                    const mapBox = container.querySelector('.map-box');
+                    const mapDesc = container.querySelector('.map-description');
+                    
+                    if (windowWidth >= 768) {
+                        // On larger screens, match heights of description to map box
+                        // This creates a more balanced layout
+                        if (mapBox && mapDesc) {
+                            // Only do this if map box is taller than description
+                            if (mapBox.offsetHeight > mapDesc.offsetHeight) {
+                                mapDesc.style.height = mapBox.offsetHeight + 'px';
+                                mapDesc.style.overflowY = 'auto';
+                            }
+                        }
+                    } else {
+                        // On mobile, let everything flow naturally
+                        if (mapDesc) {
+                            mapDesc.style.height = '';
+                            mapDesc.style.overflowY = '';
+                        }
+                    }
+                });
+            }
+            
+            // Call these functions when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                optimizeMapImages();
+                handleResponsiveMapLayout();
+                
+                // Also call on window resize
+                window.addEventListener('resize', function() {
+                    handleResponsiveMapLayout();
+                });
+                
+                // Call again after images have loaded to ensure proper calculations
+                window.addEventListener('load', function() {
+                    handleResponsiveMapLayout();
+                });
+                
+                // Enhanced map container animation
+                const mapContainers = document.querySelectorAll('.map-container');
+                
+                // Use Intersection Observer for scroll animations
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.1
+                    });
+                    
+                    mapContainers.forEach(container => {
+                        container.style.opacity = '0';
+                        container.style.transform = 'translateY(20px)';
+                        container.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        observer.observe(container);
+                    });
+                }
+            });
+                </script>
 </body>
 </html>
