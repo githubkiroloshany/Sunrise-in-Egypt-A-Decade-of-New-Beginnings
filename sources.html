@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Team</title>
+    <title>Sources</title>
     <style>
         :root {
             --primary-color: rgba(255, 174, 0);
@@ -166,10 +166,7 @@
 
         
 
-        .content-box:hover {
-            transform: scale(1.05);
-        }
-
+        
         .content-box img {
             width: 100%;
             height: auto;
@@ -280,182 +277,7 @@
             width: 100%
         }
 
-        /* Enhanced Comment System Styles */
-        .comments-section {
-            margin-top: 2rem;
-            padding: 2rem;
-            background-color: var(--light-bg);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .comment-form {
-            margin: 1rem 0 2rem;
-            padding: 1.5rem;
-            background-color: var(--bg-color);
-            border-radius: 12px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .comment-form textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            resize: vertical;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        .comment-form button {
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .comment-form button:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-2px);
-        }
-
-        .comment {
-            background-color: var(--bg-color);
-            border-left: 4px solid var(--primary-color);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .comment-author {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent-color);
-        }
-
-        .comment p {
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .comment-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .comment small {
-            color: var(--text-color);
-            opacity: 0.7;
-            font-style: italic;
-        }
-
-        .reactions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .reaction-btn {
-            background: none;
-            border: 1px solid var(--primary-color);
-            border-radius: 20px;
-            padding: 0.3rem 0.7rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            color: var(--text-color);
-        }
-
-        .reaction-btn:hover {
-            background-color: var(--light-bg);
-            transform: scale(1.05);
-        }
-
-        .reaction-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        /* Alert styles */
-        .alert {
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .alert-success {
-            background-color: rgba(76, 175, 80, 0.2);
-            border: 1px solid #4CAF50;
-            color: #2e7d32;
-        }
-
-        .alert-error {
-            background-color: rgba(244, 67, 54, 0.2);
-            border: 1px solid #F44336;
-            color: #d32f2f;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .comments-section {
-                padding: 1rem;
-            }
-            
-            .comment {
-                padding: 1rem;
-            }
-            
-            .comment-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-        }
+        
         nav ul {
             display: flex;
             list-style: none;
@@ -470,6 +292,7 @@
             transition: all 0.3s;
             border-radius: 12px;
         }
+        
         .sharp-box {
             background-color: var(--primary-color);
             color: white;
@@ -483,6 +306,26 @@
             font-size: 1.5rem;
             width: 100%;
         }
+
+
+
+        .src-links {
+            list-style: none;
+            font-size: 2rem;
+        }
+
+        .src-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .src-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .src-links a:hover {
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -492,9 +335,9 @@
     <div class="header-content">
         <div class="logo">
             <img src="logo.png" alt="Logo">
-            <h1 data-lang="en">Our Team</h1>
-            <h1 data-lang="ar" style="display: none;">فريقنا</h1>
-            <h1 data-lang="fr" style="display: none;">Notre équipe</h1>
+            <h1 data-lang="en">Sources</h1>
+            <h1 data-lang="ar" style="display: none;">مصادر</h1>
+            <h1 data-lang="fr" style="display: none;">Sources</h3>
             
             </div>
             <nav>
@@ -575,22 +418,106 @@
         
     <main>
         <div class="sharp-box">
-            <h1 data-lang="en">Our Team</h1>
-            <h1 data-lang="ar" style="display: none;">فريقنا</h1>
-            <h1 data-lang="fr" style="display: none;">Notre équipe</h1>
+            <h1 data-lang="en">Sources</h1>
+            <h1 data-lang="ar" style="display: none;">المصادر</h1>
+            <h1 data-lang="fr" style="display: none;">Sources</h1>
         </div>
         <div class="content-container">
             <div class="content-box">
-                <h2 data-lang="en">Research and Infographics: Joy Hany Adel</h2>
-                <h2 data-lang="ar" style="display: none;">البحث والانفوجرافيك: جوي هاني عادل</h2>
-                <h2 data-lang="fr" style="display: none;">Recherche et Infographie: Joy Hany Adel</h2>
-            </div>
-            <div class="content-box">
-                <h2 data-lang="en">Programmer and UI Designer: Kirolos Hany Adel</h2>
-                <h2 data-lang="ar" style="display: none;">مبرمج ومصمم واجهة المستخدم: كيرلس هاني عادل</h2>
-                <h2 data-lang="fr" style="display: none;">Programmeur et Designer UI: Kirolos Hany Adel</h2>
-            </div>
-           
+               <ul class="src-links">
+               
+<li>
+    <a href="https://www.sis.gov.eg/" data-lang="en">Egyptian Intelligence Service</a>
+    <a href="https://www.sis.gov.eg/" data-lang="ar" style="display: none;">جهاز المخابرات المصري</a>
+    <a href="https://www.sis.gov.eg/" data-lang="fr" style="display: none;">Service de Renseignement Égyptien</a>
+    </li>
+    
+    <!-- Al-Masry Al-Youm -->
+    <li>
+    <a href="https://www.almasryalyoum.com/" data-lang="en">Al-Masry Al-Youm</a>
+    <a href="https://www.almasryalyoum.com/" data-lang="ar" style="display: none;">المصري اليوم</a>
+    <a href="https://www.almasryalyoum.com/" data-lang="fr" style="display: none;">Al-Masry Al-Youm</a>
+    </li>
+    
+    <!-- Al-Ahram -->
+    <li>
+    <a href="https://www.ahram.org.eg/" data-lang="en">Al-Ahram</a>
+    <a href="https://www.ahram.org.eg/" data-lang="ar" style="display: none;">الأهرام</a>
+    <a href="https://www.ahram.org.eg/" data-lang="fr" style="display: none;">Al-Ahram</a>
+    </li>
+    
+    <!-- Youm7 -->
+    <li>
+    <a href="https://www.youm7.com/" data-lang="en">Youm7</a>
+    <a href="https://www.youm7.com/" data-lang="ar" style="display: none;">اليوم السابع</a>
+    <a href="https://www.youm7.com/" data-lang="fr" style="display: none;">Youm7</a>
+    </li>
+    
+    <!-- Egyptian Presidency -->
+    <li>
+    <a href="https://www.presidency.eg" data-lang="en">Egyptian Presidency</a>
+    <a href="https://www.presidency.eg" data-lang="ar" style="display: none;">رئاسة الجمهورية المصرية</a>
+    <a href="https://www.presidency.eg" data-lang="fr" style="display: none;">Présidence Égyptienne</a>
+    </li>
+    
+    <!-- Invest in Egypt -->
+    <li>
+    <a href="https://www.investinegypt.gov.eg/" data-lang="en">Invest in Egypt</a>
+    <a href="https://www.investinegypt.gov.eg/" data-lang="ar" style="display: none;">الاستثمار في مصر</a>
+    <a href="https://www.investinegypt.gov.eg/" data-lang="fr" style="display: none;">Investir en Égypte</a>
+    </li>
+    
+    <!-- Egypt Today -->
+    <li>
+    <a href="https://www.egypttoday.com/" data-lang="en">Egypt Today</a>
+    <a href="https://www.egypttoday.com/" data-lang="ar" style="display: none;">مصر اليوم</a>
+    <a href="https://www.egypttoday.com/" data-lang="fr" style="display: none;">L'Égypte Aujourd'hui</a>
+    </li>
+    
+    <!-- Property Finder Egypt -->
+    <li>
+    <a href="https://www.propertyfinder.eg/" data-lang="en">Property Finder Egypt</a>
+    <a href="https://www.propertyfinder.eg/" data-lang="ar" style="display: none;">بروبرتي فايندر مصر</a>
+    <a href="https://www.propertyfinder.eg/" data-lang="fr" style="display: none;">Property Finder Égypte</a>
+    </li>
+    
+    <!-- City Edge Developments -->
+    <li>
+    <a href="https://cityedgedevelopments.com/" data-lang="en">City Edge Developments</a>
+    <a href="https://cityedgedevelopments.com/" data-lang="ar" style="display: none;">سيتي إيدج للتطوير العقاري</a>
+    <a href="https://cityedgedevelopments.com/" data-lang="fr" style="display: none;">City Edge Developments</a>
+    </li>
+    
+    <!-- Grand Egyptian Museum -->
+    <li>
+    <a href="https://www.visit-gem.com/" data-lang="en">Grand Egyptian Museum</a>
+    <a href="https://www.visit-gem.com/" data-lang="ar" style="display: none;">المتحف المصري الكبير</a>
+    <a href="https://www.visit-gem.com/" data-lang="fr" style="display: none;">Grand Musée Égyptien</a>
+    </li>
+    
+    <!-- Ministry of Health and Population -->
+    <li>
+    <a href="https://www.mohp.gov.eg/" data-lang="en">Ministry of Health and Population</a>
+    <a href="https://www.mohp.gov.eg/" data-lang="ar" style="display: none;">وزارة الصحة والسكان</a>
+    <a href="https://www.mohp.gov.eg/" data-lang="fr" style="display: none;">Ministère de la Santé et de la Population</a>
+    </li>
+    
+    <!-- Wikipedia -->
+    <li>
+    <a href="https://en.wikipedia.org/" data-lang="en">Wikipedia</a>
+    <a href="https://ar.wikipedia.org/" data-lang="ar" style="display: none;">ويكيبيديا</a>
+    <a href="https://fr.wikipedia.org/" data-lang="fr" style="display: none;">Wikipédia</a>
+    </li>
+    
+    <!-- Egyptian Streets -->
+    <li>
+    <a href="https://egyptianstreets.com/" data-lang="en">Egyptian Streets</a>
+    <a href="https://egyptianstreets.com/" data-lang="ar" style="display: none;">شوارع مصرية</a>
+    <a href="https://egyptianstreets.com/" data-lang="fr" style="display: none;">Egyptian Streets</a>
+    </li>
+
+</ul>            
+</div>
         </div>
     </main>
     <footer>
@@ -664,6 +591,7 @@
                         <a href="sources.html" data-lang="ar" style="display: none;">مصادر</a>
                         <a href="sources.html" data-lang="fr" style="display: none;">Sources</a>
                     </li>
+                    
                 </ul>
             </div>
             <div class="footer-section">
